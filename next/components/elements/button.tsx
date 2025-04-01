@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import React from "react";
-import { LinkProps } from "next/link"; // Or from your routing library
+import { LinkProps } from "next/link";
 
 interface ButtonProps extends React.ComponentPropsWithoutRef<"button"> {
   variant?: "simple" | "outline" | "primary" | "muted";

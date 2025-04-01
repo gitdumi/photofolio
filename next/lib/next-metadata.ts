@@ -1,11 +1,10 @@
 const seoData = {
-  title:
-    "LaunchPad - Your content delivery partner for large scale applications",
+  title: "luke closer",
   description: `A platform integrating Aceternity with Strapi for seamless content management.`,
   image: "https://ui.aceternity.com/banner.png",
   openGraph: {
     type: "website",
-    title: `LaunchPad - Your content delivery partner for large scale applications`,
+    title: `luke closer`,
     url: "https://ui.aceternity.com", // TODO: Fix this
     description: `A platform integrating Aceternity with Strapi for seamless content management.`,
     locale: "en_EN",
@@ -17,7 +16,7 @@ const seoData = {
         url: `https://ui.aceternity.com/banner.png`, // TODO: Fix this
       },
     ],
-    site_name: "launchpad",
+    site_name: "luke closer",
   },
   twitter: {
     handle: "@mannupaaji",

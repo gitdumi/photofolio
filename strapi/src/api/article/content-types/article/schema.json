@@ -92,6 +92,14 @@
           "localized": true
         }
       }
+    },
+    "redirectToHome": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "boolean"
     }
   }
 }

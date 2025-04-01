@@ -21,10 +21,15 @@ type Props = {
     target?: string;
   }[];
   logo: any;
-  locale: string
+  locale: string;
 };
 
-export const MobileNavbar = ({ leftNavbarItems, rightNavbarItems, logo, locale }: Props) => {
+export const MobileNavbar = ({
+  leftNavbarItems,
+  rightNavbarItems,
+  logo,
+  locale,
+}: Props) => {
   const [open, setOpen] = useState(false);
 
   const { scrollY } = useScroll();
@@ -44,7 +49,7 @@ export const MobileNavbar = ({ leftNavbarItems, rightNavbarItems, logo, locale }
       className={cn(
         "flex justify-between bg-transparent items-center w-full rounded-md px-2.5 py-1.5 transition duration-200",
         showBackground &&
-        " bg-neutral-900  shadow-[0px_-2px_0px_0px_var(--neutral-800),0px_2px_0px_0px_var(--neutral-800)]"
+          " bg-neutral-900  shadow-[0px_-2px_0px_0px_var(--neutral-800),0px_2px_0px_0px_var(--neutral-800)]"
       )}
     >
       <Logo image={logo?.image} />
@@ -59,7 +64,7 @@ export const MobileNavbar = ({ leftNavbarItems, rightNavbarItems, logo, locale }
           <div className="flex items-center justify-between w-full px-5">
             <Logo locale={locale} image={logo?.image} />
             <div className="flex items-center space-x-2">
-              <LocaleSwitcher currentLocale={locale} />
+              {/* <LocaleSwitcher currentLocale={locale} /> */}
               <IoIosClose
                 className="h-8 w-8 text-white"
                 onClick={() => setOpen(!open)}
@@ -101,7 +106,14 @@ export const MobileNavbar = ({ leftNavbarItems, rightNavbarItems, logo, locale }
           </div>
           <div className="flex flex-row w-full items-start gap-2.5  px-8 py-4 ">
             {rightNavbarItems.map((item, index) => (
-              <Button key={item.text} variant={index === rightNavbarItems.length - 1 ? 'primary' : 'simple'} as={Link} href={`/${locale}${item.URL}`}>
+              <Button
+                key={item.text}
+                variant={
+                  index === rightNavbarItems.length - 1 ? "primary" : "simple"
+                }
+                as={Link}
+                href={`/${locale}${item.URL}`}
+              >
                 {item.text}
               </Button>
             ))}

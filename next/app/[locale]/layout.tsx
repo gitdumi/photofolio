@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Sora } from "next/font/google";
 import { generateMetadataObject } from "@/lib/shared/metadata";
 
 import { Footer } from "@/components/footer";
@@ -11,10 +11,10 @@ import { cn } from "@/lib/utils";
 import { ViewTransitions } from "next-view-transitions";
 import fetchContentType from "@/lib/strapi/fetchContentType";
 
-const inter = Inter({
+const sora = Sora({
   subsets: ["latin"],
   display: "swap",
-  weight: ["400", "500", "600", "700", "800", "900"],
+  weight: ["400", "500", "600", "700", "800"],
 });
 
 // Default Global SEO for pages without them
@@ -55,7 +55,7 @@ export default async function LocaleLayout({
         <CartProvider>
           <body
             className={cn(
-              inter.className,
+              sora.className,
               "bg-charcoal antialiased h-full w-full"
             )}
           >

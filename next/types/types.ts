@@ -18,7 +18,8 @@ export interface Article {
   publishedAt: string;
   locale: string;
   image: Image;
-  categories: Category[]
+  categories: Category[];
+  redirectToHome: boolean;
 }
 
 export interface Product {
@@ -32,4 +33,4 @@ export interface Product {
   featured?: boolean;
   images: any[];
   categories?: any[];
-};
+}
