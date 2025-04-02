@@ -14,6 +14,7 @@ export default ({ env }) => ({
           // signedUrlExpires: env("AWS_SIGNED_URL_EXPIRES", 15 * 60),
           Bucket: env("AWS_BUCKET"),
         },
+        resize: false, // Disable automatic resizing
       },
     },
   },

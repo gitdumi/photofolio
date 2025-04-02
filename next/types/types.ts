@@ -5,8 +5,8 @@ export interface Category {
 export interface Image {
   url: string;
   alternativeText: string;
-  height: string;
-  width: string;
+  height: number;
+  width: number;
 }
 
 export interface Article {

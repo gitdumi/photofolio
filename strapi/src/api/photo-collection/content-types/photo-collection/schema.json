@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "photo_collections",
+  "info": {
+    "singularName": "photo-collection",
+    "pluralName": "photo-collections",
+    "displayName": "Photo Collections",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "collectionName": {
+      "type": "text"
+    },
+    "content": {
+      "type": "blocks"
+    },
+    "price": {
+      "type": "decimal"
+    },
+    "photos": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::photo.photo"
+    }
+  }
+}
