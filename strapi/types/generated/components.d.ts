@@ -75,6 +75,24 @@ export interface DynamicZoneBrands extends Struct.ComponentSchema {
   };
 }
 
+export interface DynamicZoneCollectionHero extends Struct.ComponentSchema {
+  collectionName: 'components_dynamic_zone_collection_heroes';
+  info: {
+    description: '';
+    displayName: 'Collection Hero';
+    icon: 'command';
+  };
+  attributes: {
+    CTA: Schema.Attribute.Component<'shared.button', false>;
+    images: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    subtitle: Schema.Attribute.String;
+    title: Schema.Attribute.String;
+  };
+}
+
 export interface DynamicZoneCta extends Struct.ComponentSchema {
   collectionName: 'components_dynamic_zone_ctas';
   info: {
@@ -83,7 +101,6 @@ export interface DynamicZoneCta extends Struct.ComponentSchema {
     icon: 'cursor';
   };
   attributes: {
-    CTAs: Schema.Attribute.Component<'shared.button', true>;
     heading: Schema.Attribute.String;
     sub_heading: Schema.Attribute.String;
   };
@@ -513,6 +530,7 @@ declare module '@strapi/strapi' {
       'cards.ray-card': CardsRayCard;
       'cards.social-media-card': CardsSocialMediaCard;
       'dynamic-zone.brands': DynamicZoneBrands;
+      'dynamic-zone.collection-hero': DynamicZoneCollectionHero;
       'dynamic-zone.cta': DynamicZoneCta;
       'dynamic-zone.faq': DynamicZoneFaq;
       'dynamic-zone.features': DynamicZoneFeatures;
