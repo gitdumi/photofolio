@@ -22,6 +22,7 @@
     "@strapi/plugin-cloud": "5.7.0",
     "@strapi/plugin-seo": "^2.0.4",
     "@strapi/plugin-users-permissions": "5.7.0",
+    "@strapi/provider-upload-aws-s3": "^5.12.1",
     "@strapi/strapi": "5.7.0",
     "better-sqlite3": "11.7.0",
     "patch-package": "^8.0.0",
@@ -36,7 +37,7 @@
     "name": "A Strapi developer"
   },
   "strapi": {
-    "uuid": "LAUNCHPAD"
+    "uuid": "LAUNCHPAD-LOCAL-939daa87-46b9-4c85-a685-d9cb13f664f3"
   },
   "engines": {
     "node": ">=18.0.0 <=20.x.x",
