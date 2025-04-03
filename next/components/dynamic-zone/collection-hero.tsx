@@ -1,11 +1,12 @@
-import { Image as ImageType } from "@/types/types";
+import { Media } from "@/types/types";
 import { Button } from "../elements/button";
 import Image from "next/image";
+import { useCart } from "@/context/cart-context";
 
 type CollectionHeroProps = {
   title: string;
   subtitle: string;
-  images: ImageType[];
+  images: (Media & { name: string })[];
   CTA: any;
 };
 
@@ -17,8 +18,8 @@ export const CollectionHero = ({
 }: CollectionHeroProps) => {
   const imageLeft = images?.[0];
   const imageRight = images?.[1];
+  console.log({ imageLeft });
 
-  console.log({ CTA });
   return (
     <section className="mx-auto my-1 w-full flex gap-4 justify-center align-center">
       {imageLeft && (

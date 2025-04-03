@@ -39,7 +39,7 @@ export interface PhotoCollection {
 }
 
 export interface Order {
-  id: string;
+  id?: string;
   totalPrice: number;
   orderStatus: OrderStatus;
   orderCreatedAt: string;
@@ -51,8 +51,9 @@ export interface Order {
   cartItems: CartItem[];
 }
 
-type CartItem = {
-  photo: Product;
+export type CartItem = {
+  id: number;
+  photo: Photo;
   price: number;
   collection: PhotoCollection;
   type: CartItemVariant;
@@ -77,44 +78,3 @@ export type User = {
   //   details: string; // Replace with actual order details structure
   // } | null;
 };
-
-///old
-export interface Category {
-  name: string;
-}
-
-export interface Image {
-  url: string;
-  alternativeText: string;
-  height: number;
-  width: number;
-  name: string;
-}
-
-export interface Article {
-  title: string;
-  description: string;
-  slug: string;
-  content: string;
-  dynamic_zone: any[];
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
-  locale: string;
-  image: Image;
-  categories: Category[];
-  redirectToHome: boolean;
-}
-
-export interface Product {
-  id: number;
-  name: string;
-  slug: string;
-  description: string;
-  price: number;
-  plans: any[];
-  perks: any[];
-  featured?: boolean;
-  images: any[];
-  categories?: any[];
-}

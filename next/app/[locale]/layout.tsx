@@ -28,7 +28,7 @@ export async function generateMetadata({
     "global",
     {
       filters: { locale: params.locale },
-      populate: "seo.metaImage",
+      populate: "photos",
     },
     true
   );

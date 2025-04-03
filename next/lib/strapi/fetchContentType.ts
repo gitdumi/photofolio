@@ -37,20 +37,23 @@ export default async function fetchContentType(
   try {
     const queryParams = { ...params };
 
+    console.log({ queryParams });
+
     if (isEnabled) {
       queryParams.status = "draft";
     }
 
     // Construct the full URL for the API request
     const url = new URL(`api/${contentType}`, process.env.NEXT_PUBLIC_API_URL);
-    // console.log("HERE", `${url.href}?${qs.stringify(queryParams)}`);
-    // console.log("STRAPI_API_URL:", process.env.NEXT_PUBLIC_API_URL);
 
+    console.log("fetch URL", `${url.href}?${qs.stringify(queryParams)}`);
     // Perform the fetch request with the provided query parameters
     const response = await fetch(`${url.href}?${qs.stringify(queryParams)}`, {
       method: "GET",
       cache: "no-store",
     });
+
+    console.log({ response });
 
     if (!response.ok) {
       throw new Error(

@@ -9,7 +9,7 @@ interface DynamicZoneComponent {
 
 interface Props {
   dynamicZone: DynamicZoneComponent[];
-  locale: string;
+  locale?: string;
 }
 
 const componentMapping: { [key: string]: any } = {

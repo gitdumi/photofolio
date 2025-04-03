@@ -8,6 +8,7 @@ import { Button } from "@/components/elements/button";
 import { Logo } from "@/components/logo";
 import { useMotionValueEvent, useScroll } from "framer-motion";
 import { LocaleSwitcher } from "../locale-switcher";
+import { useUserContext } from "@/context/user-context";
 
 type Props = {
   leftNavbarItems: {
@@ -35,6 +36,7 @@ export const MobileNavbar = ({
   const { scrollY } = useScroll();
 
   const [showBackground, setShowBackground] = useState(false);
+  const { user, logout } = useUserContext();
 
   useMotionValueEvent(scrollY, "change", (value) => {
     if (value > 100) {
@@ -64,12 +66,22 @@ export const MobileNavbar = ({
           <div className="flex items-center justify-between w-full px-5">
             <Logo locale={locale} image={logo?.image} />
             <div className="flex items-center space-x-2">
-              {/* <LocaleSwitcher currentLocale={locale} /> */}
               <IoIosClose
                 className="h-8 w-8 text-white"
                 onClick={() => setOpen(!open)}
               />
             </div>
+          </div>
+          <div className="flex flex-col w-full items-center gap-10  px-8 py-4 ">
+            {user?.username && <span>{user.username}</span>}
+            <Button
+              variant="outline"
+              onClick={user ? logout : () => null}
+              as={user ? "a" : Link}
+              href={user ? "" : "/sign-up"}
+            >
+              {user ? "Logout" : "Authenticate"}
+            </Button>
           </div>
           <div className="flex flex-col items-start justify-start gap-[14px] px-8">
             {leftNavbarItems.map((navItem: any, idx: number) => (

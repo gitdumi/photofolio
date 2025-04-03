@@ -21,6 +21,7 @@ export const Hero = ({
   CTAs: any[];
   locale: string;
 }) => {
+  return <div className="h-80" />;
   return (
     <div className="h-screen overflow-hidden relative flex flex-col items-center justify-center">
       {/* <motion.div

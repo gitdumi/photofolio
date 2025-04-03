@@ -15,6 +15,7 @@ import { LocaleSwitcher } from "../locale-switcher";
 import { useUserContext } from "@/context/user-context";
 import { ROUTES } from "@/app/api/routes.constants";
 import { useRouter } from "next/navigation";
+import { useCart } from "@/context/cart-context";
 
 type Props = {
   leftNavbarItems: {
@@ -41,6 +42,7 @@ export const DesktopNavbar = ({
 
   const [showBackground, setShowBackground] = useState(false);
   const { user, logout } = useUserContext();
+  const { count } = useCart();
 
   useMotionValueEvent(scrollY, "change", (value) => {
     if (value > 100) {
@@ -92,8 +94,8 @@ export const DesktopNavbar = ({
       </div>
       <div className="flex space-x-2 items-center">
         {/* <LocaleSwitcher currentLocale={locale} /> */}
-
-        {user?.username && <span>Hello, {user.username}</span>}
+        {user?.username && <span>welcome, {user.username}</span>}|
+        {count > 0 && <span>Cart items: {count}</span>}
         {rightNavbarItems.map((item, index) => (
           <Button
             key={item.text}

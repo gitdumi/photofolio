@@ -17,9 +17,9 @@ export default async function SingleArticlePage({
       filters: {
         slug: params.slug,
         locale: params.locale,
-      }
+      },
     },
-    true,
+    true
   );
 
   if (!article) {

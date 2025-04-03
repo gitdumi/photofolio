@@ -39,12 +39,10 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     localStorage.setItem("user", JSON.stringify(user));
     setToken(token);
     setUser(user);
-    console.log("LOGIN SUCCESS", user, token);
     return { message, ok };
   };
 
   const logout = () => {
-    console.log('logout');
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     setToken(null);
