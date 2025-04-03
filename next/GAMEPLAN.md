@@ -26,5 +26,9 @@ Tasks
 
 1. BE Strapi
    A. Configure content types
-   B. Configure component types
-   C. Configure content
+   - photo
+   - photo collection
+   - user
+   - purchase
+     B. Configure component types
+     C. Configure content

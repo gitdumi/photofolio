@@ -7,6 +7,7 @@ export interface Image {
   alternativeText: string;
   height: number;
   width: number;
+  name: string;
 }
 
 export interface Article {

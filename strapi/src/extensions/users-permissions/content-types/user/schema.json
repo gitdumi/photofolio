@@ -65,10 +65,15 @@
       "inversedBy": "users",
       "configurable": false
     },
-    "purchase": {
+    "photos": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::photo.photo"
+    },
+    "order": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "api::purchase.purchase",
+      "target": "api::order.order",
       "mappedBy": "users_permissions_user"
     }
   }

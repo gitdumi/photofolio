@@ -61,6 +61,17 @@ export interface CardsSocialMediaCard extends Struct.ComponentSchema {
   };
 }
 
+export interface CartCartItem extends Struct.ComponentSchema {
+  collectionName: 'components_cart_cart_items';
+  info: {
+    displayName: 'Cart item';
+  };
+  attributes: {
+    photo: Schema.Attribute.Relation<'oneToOne', 'api::photo.photo'>;
+    price: Schema.Attribute.Decimal;
+  };
+}
+
 export interface DynamicZoneBrands extends Struct.ComponentSchema {
   collectionName: 'components_dynamic_zone_brands';
   info: {
@@ -529,6 +540,7 @@ declare module '@strapi/strapi' {
       'cards.graph-card': CardsGraphCard;
       'cards.ray-card': CardsRayCard;
       'cards.social-media-card': CardsSocialMediaCard;
+      'cart.cart-item': CartCartItem;
       'dynamic-zone.brands': DynamicZoneBrands;
       'dynamic-zone.collection-hero': DynamicZoneCollectionHero;
       'dynamic-zone.cta': DynamicZoneCta;
