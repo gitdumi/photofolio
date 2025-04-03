@@ -10,6 +10,7 @@ import { CartProvider } from "@/context/cart-context";
 import { cn } from "@/lib/utils";
 import { ViewTransitions } from "next-view-transitions";
 import fetchContentType from "@/lib/strapi/fetchContentType";
+import { UserProvider } from "@/context/user-context";
 
 const sora = Sora({
   subsets: ["latin"],
@@ -52,18 +53,20 @@ export default async function LocaleLayout({
   return (
     <html lang={locale}>
       <ViewTransitions>
-        <CartProvider>
-          <body
-            className={cn(
-              sora.className,
-              "bg-charcoal antialiased h-full w-full"
-            )}
-          >
-            <Navbar data={pageData.navbar} locale={locale} />
-            {children}
-            <Footer data={pageData.footer} locale={locale} />
-          </body>
-        </CartProvider>
+        <UserProvider>
+          <CartProvider>
+            <body
+              className={cn(
+                sora.className,
+                "bg-charcoal antialiased h-full w-full"
+              )}
+            >
+              <Navbar data={pageData.navbar} locale={locale} />
+              {children}
+              <Footer data={pageData.footer} locale={locale} />
+            </body>
+          </CartProvider>
+        </UserProvider>
       </ViewTransitions>
     </html>
   );

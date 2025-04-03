@@ -1,58 +1,34 @@
 "use client";
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import { Container } from "./container";
 import { Logo } from "./logo";
 import { Button } from "./elements/button";
 import { ROUTES } from "@/app/api/routes.constants";
 import { headers } from "@/lib/fetch-utils";
+import { useRouter } from "next/navigation";
+import { useUserContext } from "@/context/user-context";
 
 export const Register = () => {
+  const router = useRouter();
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isRegistering, setIsRegistering] = useState(true);
+  const [message, setMessage] = useState<string | null>(null);
+  const { login, register } = useUserContext();
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    try {
-      const response = await fetch(ROUTES.auth.login, {
-        method: "POST",
-        headers,
-        body: JSON.stringify({ email, password }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        alert(data.message || "Invalid email or password");
-        return;
-      }
-
-      alert("Login successful!");
-      // Save the JWT token (optional, for authenticated requests)
-      localStorage.setItem("token", data.jwt);
-      // Redirect or perform additional actions
-    } catch (error) {
-      alert("An error occurred. Please try again.");
-    }
+    const { ok, message } = await login(email, password);
+    !ok && message && setMessage(message);
+    if (ok) router.push("/");
   };
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    const response = await fetch(ROUTES.auth.register, {
-      method: "POST",
-      // headers: {
-      //   Accept: "application/json",
-      //   "Content-Type": "application/json",
-      // },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    });
-
-    console.log({ response });
+    const { ok, message } = await register(email, password);
+    !ok && message && setMessage(message);
+    if (ok) router.push("/");
   };
 
   return (
@@ -68,6 +44,15 @@ export const Register = () => {
       </p>
 
       <form className="w-full my-4">
+        {isRegistering && (
+          <input
+            type="username"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            className="h-10 pl-4 w-full mb-4 rounded-md text-sm bg-charcoal border border-neutral-800 text-white placeholder-neutral-500 outline-none focus:outline-none active:outline-none focus:ring-2 focus:ring-neutral-800"
+          />
+        )}
         <input
           type="email"
           placeholder="Email Address"
@@ -82,6 +67,7 @@ export const Register = () => {
           onChange={(e) => setPassword(e.target.value)}
           className="h-10 pl-4 w-full mb-4 rounded-md text-sm bg-charcoal border border-neutral-800 text-white placeholder-neutral-500 outline-none focus:outline-none active:outline-none focus:ring-2 focus:ring-neutral-800"
         />
+
         <Button
           className="mx-auto my-2"
           variant="simple"
@@ -106,6 +92,7 @@ export const Register = () => {
             </span>
           </Button>
         </div>
+        {message && <p>{message}</p>}
       </form>
     </Container>
   );

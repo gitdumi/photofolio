@@ -1,7 +1,8 @@
 {
   "collectionName": "components_cart_cart_items",
   "info": {
-    "displayName": "Cart item"
+    "displayName": "Cart item",
+    "description": ""
   },
   "options": {},
   "attributes": {
@@ -12,6 +13,18 @@
     },
     "price": {
       "type": "decimal"
+    },
+    "collection": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::photo-collection.photo-collection"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "photo",
+        "collection"
+      ]
     }
   }
 }

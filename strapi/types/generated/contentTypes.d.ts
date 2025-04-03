@@ -831,10 +831,7 @@ export interface ApiPhotoPhoto extends Struct.CollectionTypeSchema {
     >;
     price: Schema.Attribute.Decimal;
     publishedAt: Schema.Attribute.DateTime;
-    rawImage: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios',
-      true
-    >;
+    rawImage: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

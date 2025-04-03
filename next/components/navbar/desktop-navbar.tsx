@@ -12,6 +12,9 @@ import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { Link } from "next-view-transitions";
 import { LocaleSwitcher } from "../locale-switcher";
+import { useUserContext } from "@/context/user-context";
+import { ROUTES } from "@/app/api/routes.constants";
+import { useRouter } from "next/navigation";
 
 type Props = {
   leftNavbarItems: {
@@ -37,6 +40,7 @@ export const DesktopNavbar = ({
   const { scrollY } = useScroll();
 
   const [showBackground, setShowBackground] = useState(false);
+  const { user, logout } = useUserContext();
 
   useMotionValueEvent(scrollY, "change", (value) => {
     if (value > 100) {
@@ -45,6 +49,7 @@ export const DesktopNavbar = ({
       setShowBackground(false);
     }
   });
+
   return (
     <motion.div
       className={cn(
@@ -88,6 +93,7 @@ export const DesktopNavbar = ({
       <div className="flex space-x-2 items-center">
         {/* <LocaleSwitcher currentLocale={locale} /> */}
 
+        {user?.username && <span>Hello, {user.username}</span>}
         {rightNavbarItems.map((item, index) => (
           <Button
             key={item.text}
@@ -100,6 +106,14 @@ export const DesktopNavbar = ({
             {item.text}
           </Button>
         ))}
+        <Button
+          variant="outline"
+          onClick={user ? logout : () => null}
+          as={user ? "a" : Link}
+          href={user ? "" : "/sign-up"}
+        >
+          {user ? "Logout" : "Authenticate"}
+        </Button>
       </div>
     </motion.div>
   );
