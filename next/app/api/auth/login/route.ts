@@ -26,12 +26,6 @@ export async function POST(req: Request) {
 
     const data = await response.json();
 
-    console.log("l0000000000gin", {
-      url: `${process.env.NEXT_PUBLIC_API_URL}/api/auth/local`,
-      response,
-      data,
-    });
-
     if (!response.ok) {
       return new Response(
         JSON.stringify({ message: data.error?.message || "Login failed" }),
@@ -39,7 +33,6 @@ export async function POST(req: Request) {
       );
     }
 
-    // Return the JWT token and user data
     return new Response(JSON.stringify({ jwt: data.jwt, user: data.user }), {
       status: 200,
     });

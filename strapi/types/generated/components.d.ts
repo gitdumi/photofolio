@@ -78,6 +78,16 @@ export interface CartCartItem extends Struct.ComponentSchema {
   };
 }
 
+export interface CollectionPhotoCarousel extends Struct.ComponentSchema {
+  collectionName: 'components_collection_photo_carousels';
+  info: {
+    displayName: 'Photo carousel';
+  };
+  attributes: {
+    photos: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+  };
+}
+
 export interface DynamicZoneBrands extends Struct.ComponentSchema {
   collectionName: 'components_dynamic_zone_brands';
   info: {
@@ -547,6 +557,7 @@ declare module '@strapi/strapi' {
       'cards.ray-card': CardsRayCard;
       'cards.social-media-card': CardsSocialMediaCard;
       'cart.cart-item': CartCartItem;
+      'collection.photo-carousel': CollectionPhotoCarousel;
       'dynamic-zone.brands': DynamicZoneBrands;
       'dynamic-zone.collection-hero': DynamicZoneCollectionHero;
       'dynamic-zone.cta': DynamicZoneCta;

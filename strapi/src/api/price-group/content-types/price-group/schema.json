@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "price_groups",
+  "info": {
+    "singularName": "price-group",
+    "pluralName": "price-groups",
+    "displayName": "Price groups"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "price": {
+      "type": "decimal"
+    },
+    "photos": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::photo.photo",
+      "mappedBy": "priceGroup"
+    },
+    "photo_collections": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::photo-collection.photo-collection",
+      "mappedBy": "priceGroup"
+    }
+  }
+}

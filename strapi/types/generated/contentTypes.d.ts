@@ -796,7 +796,10 @@ export interface ApiPhotoCollectionPhotoCollection
     > &
       Schema.Attribute.Private;
     photos: Schema.Attribute.Relation<'oneToMany', 'api::photo.photo'>;
-    price: Schema.Attribute.Decimal;
+    priceGroup: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::price-group.price-group'
+    >;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -816,6 +819,7 @@ export interface ApiPhotoPhoto extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    alt: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -829,7 +833,10 @@ export interface ApiPhotoPhoto extends Struct.CollectionTypeSchema {
     previewImage: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios'
     >;
-    price: Schema.Attribute.Decimal;
+    priceGroup: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::price-group.price-group'
+    >;
     publishedAt: Schema.Attribute.DateTime;
     rawImage: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     updatedAt: Schema.Attribute.DateTime;
@@ -865,6 +872,40 @@ export interface ApiPlanPlan extends Struct.CollectionTypeSchema {
     product: Schema.Attribute.Relation<'manyToOne', 'api::product.product'>;
     publishedAt: Schema.Attribute.DateTime;
     sub_text: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiPriceGroupPriceGroup extends Struct.CollectionTypeSchema {
+  collectionName: 'price_groups';
+  info: {
+    displayName: 'Price groups';
+    pluralName: 'price-groups';
+    singularName: 'price-group';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::price-group.price-group'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    photo_collections: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::photo-collection.photo-collection'
+    >;
+    photos: Schema.Attribute.Relation<'oneToMany', 'api::photo.photo'>;
+    price: Schema.Attribute.Decimal;
+    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1578,6 +1619,7 @@ declare module '@strapi/strapi' {
       'api::photo-collection.photo-collection': ApiPhotoCollectionPhotoCollection;
       'api::photo.photo': ApiPhotoPhoto;
       'api::plan.plan': ApiPlanPlan;
+      'api::price-group.price-group': ApiPriceGroupPriceGroup;
       'api::product-page.product-page': ApiProductPageProductPage;
       'api::product.product': ApiProductProduct;
       'api::redirection.redirection': ApiRedirectionRedirection;

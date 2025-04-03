@@ -18,7 +18,7 @@ export default async function SingleCollectionPage({
         id: params.slug,
         locale: params.locale,
       },
-      populate: "photos.previewImage",
+      populate: ["photos.previewImage", "priceGroup", "photos.priceGroup"],
     },
     true
   );

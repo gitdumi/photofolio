@@ -42,7 +42,7 @@ export const DesktopNavbar = ({
 
   const [showBackground, setShowBackground] = useState(false);
   const { user, logout } = useUserContext();
-  const { count } = useCart();
+  const { count, getCartTotal, clearCart } = useCart();
 
   useMotionValueEvent(scrollY, "change", (value) => {
     if (value > 100) {
@@ -96,6 +96,7 @@ export const DesktopNavbar = ({
         {/* <LocaleSwitcher currentLocale={locale} /> */}
         {user?.username && <span>welcome, {user.username}</span>}|
         {count > 0 && <span>Cart items: {count}</span>}
+        {getCartTotal() > 0 && <span>TotalPrice: {getCartTotal()}$</span>}
         {rightNavbarItems.map((item, index) => (
           <Button
             key={item.text}
@@ -110,7 +111,14 @@ export const DesktopNavbar = ({
         ))}
         <Button
           variant="outline"
-          onClick={user ? logout : () => null}
+          onClick={
+            user
+              ? () => {
+                  logout();
+                  clearCart();
+                }
+              : () => null
+          }
           as={user ? "a" : Link}
           href={user ? "" : "/sign-up"}
         >

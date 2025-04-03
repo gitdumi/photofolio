@@ -27,7 +27,6 @@ export const signIn = async (
       body: JSON.stringify({ email, password }),
     });
     const data = await response.json();
-    console.log({ data });
     result.token = data.jwt;
     result.message = data.message;
     result.ok = response.ok;
@@ -65,7 +64,6 @@ export const createAccount = async (
     result.message = data.message;
     result.ok = response.ok;
     result.user = data.user;
-    console.log({ data });
   } catch (error) {
     result.message = "An error occurred. Please try again.";
     result.ok = false;

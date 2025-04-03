@@ -21,20 +21,26 @@ export interface Media {
   caption?: string; // Optional caption for the media
 }
 
+export interface PriceGroup {
+  id: number;
+  name: string;
+  price: number;
+}
 export interface Photo {
-  id: string;
+  documentId: string;
   name: string;
   previewImage?: Media | null;
   fullResImage?: Media | null;
   rawImage?: Media;
-  price: number;
+  alt?: string;
+  priceGroup: PriceGroup;
 }
 
 export interface PhotoCollection {
-  id: string;
+  documentId: string;
   collectionName: string;
   content: BlocksContent;
-  price: number;
+  priceGroup: PriceGroup;
   photos?: Photo[];
 }
 
@@ -52,10 +58,11 @@ export interface Order {
 }
 
 export type CartItem = {
-  id: number;
-  photo: Photo;
-  price: number;
-  collection: PhotoCollection;
+  documentId: string;
+  photo: Photo | null;
+  priceGroup: PriceGroup;
+  collection: PhotoCollection | null;
+  fromCollection: string | null;
   type: CartItemVariant;
 };
 

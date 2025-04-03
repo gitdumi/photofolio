@@ -11,11 +11,11 @@ import { Button } from "../elements/button";
 
 type Perks = {
   [key: string]: string;
-}
+};
 
 type CTA = {
   [key: string]: string;
-}
+};
 
 type Plan = {
   name: string;
@@ -28,10 +28,16 @@ type Plan = {
   CTA?: CTA | undefined;
 };
 
-export const Pricing = ({ heading, sub_heading, plans }: { heading: string, sub_heading: string, plans: any[] }) => {
-  const onClick = (plan: Plan) => {
-    console.log("click", plan);
-  };
+export const Pricing = ({
+  heading,
+  sub_heading,
+  plans,
+}: {
+  heading: string;
+  sub_heading: string;
+  plans: any[];
+}) => {
+  const onClick = (plan: Plan) => {};
   return (
     <div className="pt-40">
       <Container>
@@ -39,9 +45,7 @@ export const Pricing = ({ heading, sub_heading, plans }: { heading: string, sub_
           <IconReceipt2 className="h-6 w-6 text-white" />
         </FeatureIconContainer>
         <Heading className="pt-4">{heading}</Heading>
-        <Subheading className="max-w-3xl mx-auto">
-          {sub_heading}
-        </Subheading>
+        <Subheading className="max-w-3xl mx-auto">{sub_heading}</Subheading>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 max-w-7xl mx-auto gap-4 py-20 lg:items-start">
           {plans.map((plan) => (
             <Card onClick={() => onClick(plan)} key={plan.name} plan={plan} />
@@ -113,7 +117,7 @@ const Card = ({ plan, onClick }: { plan: Plan; onClick: () => void }) => {
           className={cn(
             "w-full mt-10 mb-4",
             plan.featured &&
-            "bg-black text-white hover:bg-black/80 hover:text-white"
+              "bg-black text-white hover:bg-black/80 hover:text-white"
           )}
           onClick={onClick}
         >

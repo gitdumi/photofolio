@@ -18,7 +18,6 @@ export const CollectionHero = ({
 }: CollectionHeroProps) => {
   const imageLeft = images?.[0];
   const imageRight = images?.[1];
-  console.log({ imageLeft });
 
   return (
     <section className="mx-auto my-1 w-full flex gap-4 justify-center align-center">

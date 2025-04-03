@@ -18,13 +18,16 @@
     "content": {
       "type": "blocks"
     },
-    "price": {
-      "type": "decimal"
-    },
     "photos": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::photo.photo"
+    },
+    "priceGroup": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::price-group.price-group",
+      "inversedBy": "photo_collections"
     }
   }
 }

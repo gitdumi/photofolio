@@ -45,11 +45,17 @@
         "audios"
       ]
     },
-    "price": {
-      "type": "decimal"
-    },
     "name": {
       "type": "string"
+    },
+    "alt": {
+      "type": "string"
+    },
+    "priceGroup": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::price-group.price-group",
+      "inversedBy": "photos"
     }
   }
 }

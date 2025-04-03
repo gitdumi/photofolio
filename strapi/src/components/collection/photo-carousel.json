@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_collection_photo_carousels",
+  "info": {
+    "displayName": "Photo carousel"
+  },
+  "options": {},
+  "attributes": {
+    "photos": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    }
+  }
+}
