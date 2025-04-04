@@ -1,4 +1,4 @@
-import { ROUTES } from "@/app/api/routes.constants";
+import { API_ROUTES } from "@/app/routes.constants";
 import { headers } from "../fetch-utils";
 import { User } from "@/types/types";
 
@@ -21,7 +21,7 @@ export const signIn = async (
   };
 
   try {
-    const response = await fetch(ROUTES.auth.login, {
+    const response = await fetch(API_ROUTES.auth.login, {
       method: "POST",
       headers,
       body: JSON.stringify({ email, password }),
@@ -50,7 +50,7 @@ export const createAccount = async (
   };
 
   try {
-    const response = await fetch(ROUTES.auth.register, {
+    const response = await fetch(API_ROUTES.auth.register, {
       method: "POST",
       headers,
       body: JSON.stringify({

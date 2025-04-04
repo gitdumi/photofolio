@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_global_currencies",
+  "info": {
+    "displayName": "Currency",
+    "icon": "handHeart"
+  },
+  "options": {},
+  "attributes": {
+    "currencyCode": {
+      "type": "string"
+    },
+    "symbol": {
+      "type": "string"
+    }
+  }
+}

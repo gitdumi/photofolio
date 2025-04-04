@@ -12,6 +12,8 @@ import {
 } from "@/lib/strapi/cart-utils";
 import { useCart } from "@/context/cart-context";
 import { Button } from "./elements/button";
+import { useAuthContext } from "@/context/user-context";
+import { PAGE_ROUTES } from "@/app/routes.constants";
 
 // export async function CollectionLayout({
 export function CollectionLayout({
@@ -22,14 +24,19 @@ export function CollectionLayout({
   children: React.ReactNode;
 }) {
   const { order, addToCart, removeFromCart } = useCart();
+  const { user } = useAuthContext();
 
   const isCollectionAddedToCart = isCollectionInCart(
     order,
     collection.documentId
   );
 
+  const handleUnAuthClick = () => {
+    !user && document?.getElementById(collection.documentId)?.showModal();
+  };
+
   return (
-    <Container className="mt-16 lg:mt-32">
+    <Container>
       <div className="flex justify-between items-center px-2 py-8">
         <Link href={"/"} className="flex space-x-2 items-center">
           <IconArrowLeft className="w-4 h-4 text-muted" />
@@ -38,7 +45,8 @@ export function CollectionLayout({
       </div>
 
       <div className="flex w-full justify-end gap-2 my-2">
-        {!isCollectionAddedToCart &&
+        {user &&
+          !isCollectionAddedToCart &&
           !isInCart(order, collection, collection.documentId) && (
             <Button
               onClick={() =>
@@ -49,27 +57,50 @@ export function CollectionLayout({
                   })
                 )
               }
+              variant="simple"
             >
               add entire collection
             </Button>
           )}
-        {(isCollectionAddedToCart ||
-          isInCart(order, collection, collection.documentId)) && (
-          <Button
-            onClick={() =>
-              removeFromCart(
-                buildCartItem({
-                  collection,
-                  type: CartItemVariant.COLLECTION,
-                })
-              )
-            }
-          >
-            remove collection
-          </Button>
-        )}
+        {user &&
+          (isCollectionAddedToCart ||
+            isInCart(order, collection, collection.documentId)) && (
+            <Button
+              onClick={() =>
+                removeFromCart(
+                  buildCartItem({
+                    collection,
+                    type: CartItemVariant.COLLECTION,
+                  })
+                )
+              }
+            >
+              remove collection
+            </Button>
+          )}
       </div>
-      <PhotoCarousel collection={collection} />
+      {!user && (
+        <dialog id={collection.documentId} className="modal">
+          <div className="modal-box">
+            <h3 className="font-bold text-lg text-black">Hey!</h3>
+            <p className="py-4 text-black">
+              If you like this image you can purchase it after registering or
+              logging in.
+            </p>
+            <Button as={Link} href={PAGE_ROUTES.login} variant="outline">
+              Register / Sign in
+            </Button>
+          </div>
+
+          <form method="dialog" className="modal-backdrop">
+            <button>close</button>
+          </form>
+        </dialog>
+      )}
+      <PhotoCarousel
+        collection={collection}
+        onUnAuthClick={handleUnAuthClick}
+      />
 
       {/* {collection?.dynamic_zone && (
         <DynamicZoneManager dynamicZone={collection?.dynamic_zone} />

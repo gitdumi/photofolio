@@ -47,6 +47,17 @@
         }
       },
       "component": "global.footer"
+    },
+    "currencyConfig": {
+      "displayName": "Currency",
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "global.currency"
     }
   }
 }

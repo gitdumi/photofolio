@@ -32,15 +32,15 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [order, setOrder] = useState<Order | null>(() => {
-    const storedOrder = sessionStorage.getItem("cartOrder");
+    const storedOrder = sessionStorage?.getItem("cartOrder");
     return storedOrder ? JSON.parse(storedOrder) : null;
   });
 
   useEffect(() => {
     if (order) {
-      sessionStorage.setItem("cartOrder", JSON.stringify(order));
+      sessionStorage?.setItem("cartOrder", JSON.stringify(order));
     } else {
-      sessionStorage.removeItem("cartOrder");
+      sessionStorage?.removeItem("cartOrder");
     }
   }, [order]);
 
@@ -54,7 +54,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
           return prev;
         }
         if (cartItem.type === CartItemVariant.COLLECTION) {
-          return updateCartIfCollectionIsAdded(prev, cartItem.collection);
+          return updateCartIfCollectionIsAdded(prev, cartItem?.collection);
         } else if (
           cartItem.type === CartItemVariant.PHOTO &&
           ((fromCollectionCartItem?.collection?.photos &&
@@ -113,7 +113,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
                 (i) =>
                   buildCartItem({
                     photo: i,
-                    fromCollection: cartItem.fromCollection,
+                    fromCollection: collectionOfCurrentCartItem.documentId,
                     type: CartItemVariant.PHOTO,
                   }) as CartItem
               ) || [];
@@ -135,6 +135,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const clearCart = useCallback(() => {
     setOrder(null);
+    sessionStorage.removeItem("cartOrder");
   }, []);
 
   const getCartTotal = useCallback(() => {

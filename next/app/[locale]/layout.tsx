@@ -5,7 +5,7 @@ import { Sora } from "next/font/google";
 import { generateMetadataObject } from "@/lib/shared/metadata";
 
 import { Footer } from "@/components/footer";
-import { Navbar } from "@/components/navbar";
+import { Navbar } from "@/components/navbar/navbar";
 import { CartProvider } from "@/context/cart-context";
 import { cn } from "@/lib/utils";
 import { ViewTransitions } from "next-view-transitions";
@@ -50,24 +50,21 @@ export default async function LocaleLayout({
     { filters: { locale } },
     true
   );
+
+  console.log("global", { pageData });
   return (
-    <html lang={locale}>
-      <ViewTransitions>
-        <UserProvider>
-          <CartProvider>
-            <body
-              className={cn(
-                sora.className,
-                "bg-charcoal antialiased h-full w-full"
-              )}
-            >
-              <Navbar data={pageData.navbar} locale={locale} />
-              {children}
-              <Footer data={pageData.footer} locale={locale} />
-            </body>
-          </CartProvider>
-        </UserProvider>
-      </ViewTransitions>
-    </html>
+    // <html lang={locale}>
+    <ViewTransitions>
+      <UserProvider>
+        <CartProvider>
+          <body className={cn(sora.className, "antialiased h-full w-full")}>
+            <Navbar currencyConfig={pageData.currencyConfig} />
+            {children}
+            <Footer data={pageData.footer} locale={locale} />
+          </body>
+        </CartProvider>
+      </UserProvider>
+    </ViewTransitions>
+    // </html>
   );
 }

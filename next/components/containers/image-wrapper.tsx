@@ -1,11 +1,11 @@
 import { useCart } from "@/context/cart-context";
+import { useAuthContext } from "@/context/user-context";
 import {
   buildCartItem,
   isCollectionInCart,
   isInCart,
 } from "@/lib/strapi/cart-utils";
 import { CartItemVariant, Photo, PhotoCollection } from "@/types/types";
-import { Button } from "../elements/button";
 import Image from "next/image";
 
 export const ImageWrapper = ({
@@ -16,8 +16,13 @@ export const ImageWrapper = ({
   collection: PhotoCollection;
 }) => {
   const { addToCart, removeFromCart, order } = useCart();
+  const { user } = useAuthContext();
 
-  const handleImageClick = () => {
+  const handleImageClick = (e) => {
+    if (!user) {
+      e.preventDefault();
+      return;
+    }
     const cartItem = buildCartItem({
       photo,
       type: CartItemVariant.PHOTO,
@@ -34,9 +39,9 @@ export const ImageWrapper = ({
   };
 
   return (
-    <div className="relative" onClick={handleImageClick}>
+    <div className="relative cursor-pointer" onClick={handleImageClick}>
       <Image
-        src={photo?.previewImage?.url || ""}
+        src={photo?.previewImage?.formats?.small?.url || ""}
         alt={photo.alt || photo.name}
         height={400}
         width={400}
@@ -49,7 +54,7 @@ export const ImageWrapper = ({
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="currentColor"
-          className="size-6 fill-white opacity-75 absolute top-2 right-2"
+          className="size-6 fill-accent opacity-95 absolute top-2 right-2"
         >
           <path
             fillRule="evenodd"

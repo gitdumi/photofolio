@@ -1,7 +1,7 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-@import "./prism.css";
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: light --default, dark --prefersdark, autumn, silk;
+}
 
 :root {
   --foreground-rgb: 255, 255, 255;
@@ -21,7 +21,7 @@ body {
   color: rgb(var(--foreground-rgb));
 }
 
-@layer utilities {
+@utility utilities {
   .text-balance {
     text-wrap: balance;
   }

@@ -1,12 +1,11 @@
 "use client";
 import React, { useState } from "react";
 import { Container } from "./container";
-import { Logo } from "./logo";
 import { Button } from "./elements/button";
-import { ROUTES } from "@/app/api/routes.constants";
+import { API_ROUTES } from "@/app/routes.constants";
 import { headers } from "@/lib/fetch-utils";
 import { useRouter } from "next/navigation";
-import { useUserContext } from "@/context/user-context";
+import { useAuthContext } from "@/context/user-context";
 
 export const Register = () => {
   const router = useRouter();
@@ -15,7 +14,7 @@ export const Register = () => {
   const [password, setPassword] = useState("");
   const [isRegistering, setIsRegistering] = useState(true);
   const [message, setMessage] = useState<string | null>(null);
-  const { login, register } = useUserContext();
+  const { login, register } = useAuthContext();
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,7 +32,6 @@ export const Register = () => {
 
   return (
     <Container className="h-screen max-w-lg mx-auto flex flex-col items-center justify-center">
-      <Logo />
       <h1 className="text-xl md:text-4xl font-bold my-4">
         {isRegistering ? "Register" : "Sign in"}
       </h1>
@@ -50,7 +48,7 @@ export const Register = () => {
             placeholder="Username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            className="h-10 pl-4 w-full mb-4 rounded-md text-sm bg-charcoal border border-neutral-800 text-white placeholder-neutral-500 outline-none focus:outline-none active:outline-none focus:ring-2 focus:ring-neutral-800"
+            className="h-10 pl-4 w-full mb-4 rounded-md text-sm bg-charcoal border border-neutral-800 text-primary placeholder-neutral-500 outline-none focus:outline-none active:outline-none focus:ring-2 focus:ring-neutral-800"
           />
         )}
         <input
@@ -58,14 +56,14 @@ export const Register = () => {
           placeholder="Email Address"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="h-10 pl-4 w-full mb-4 rounded-md text-sm bg-charcoal border border-neutral-800 text-white placeholder-neutral-500 outline-none focus:outline-none active:outline-none focus:ring-2 focus:ring-neutral-800"
+          className="h-10 pl-4 w-full mb-4 rounded-md text-sm bg-charcoal border border-neutral-800 text-primary placeholder-neutral-500 outline-none focus:outline-none active:outline-none focus:ring-2 focus:ring-neutral-800"
         />
         <input
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="h-10 pl-4 w-full mb-4 rounded-md text-sm bg-charcoal border border-neutral-800 text-white placeholder-neutral-500 outline-none focus:outline-none active:outline-none focus:ring-2 focus:ring-neutral-800"
+          className="h-10 pl-4 w-full mb-4 rounded-md text-sm bg-charcoal border border-neutral-800 text-primary placeholder-neutral-500 outline-none focus:outline-none active:outline-none focus:ring-2 focus:ring-neutral-800"
         />
 
         <Button

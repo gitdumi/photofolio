@@ -285,6 +285,18 @@ export interface DynamicZoneTestimonials extends Struct.ComponentSchema {
   };
 }
 
+export interface GlobalCurrency extends Struct.ComponentSchema {
+  collectionName: 'components_global_currencies';
+  info: {
+    displayName: 'Currency';
+    icon: 'handHeart';
+  };
+  attributes: {
+    currencyCode: Schema.Attribute.String;
+    symbol: Schema.Attribute.String;
+  };
+}
+
 export interface GlobalFooter extends Struct.ComponentSchema {
   collectionName: 'components_global_footers';
   info: {
@@ -571,6 +583,7 @@ declare module '@strapi/strapi' {
       'dynamic-zone.related-articles': DynamicZoneRelatedArticles;
       'dynamic-zone.related-products': DynamicZoneRelatedProducts;
       'dynamic-zone.testimonials': DynamicZoneTestimonials;
+      'global.currency': GlobalCurrency;
       'global.footer': GlobalFooter;
       'global.navbar': GlobalNavbar;
       'items.graph-card-top-items': ItemsGraphCardTopItems;

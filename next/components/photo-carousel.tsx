@@ -1,18 +1,17 @@
-"use client";
-import { useCart } from "@/context/cart-context";
-import { buildCartItem, isInCart } from "@/lib/strapi/cart-utils";
-import { CartItemVariant, Photo, PhotoCollection } from "@/types/types";
-import Image from "next/image";
+import { Photo, PhotoCollection } from "@/types/types";
 import { useEffect, useRef } from "react";
-import { Button } from "./elements/button";
 import { ImageWrapper } from "./containers/image-wrapper";
 
 type PhotoCarouselProps = {
   collection: PhotoCollection;
+  onUnAuthClick: () => void;
 };
 
-export const PhotoCarousel = ({ collection }: PhotoCarouselProps) => {
-  const { photos, documentId } = collection || {};
+export const PhotoCarousel = ({
+  collection,
+  onUnAuthClick,
+}: PhotoCarouselProps) => {
+  const { photos } = collection || {};
   if (!photos) return null;
   const leftColumnRef = useRef<HTMLDivElement>(null);
   const rightColumnRef = useRef<HTMLDivElement>(null);
@@ -52,7 +51,10 @@ export const PhotoCarousel = ({ collection }: PhotoCarouselProps) => {
   const rightColumnPhotos = photos;
 
   return (
-    <div className="relative flex gap-8 h-[1000px] w-full mx-auto">
+    <div
+      className="relative flex gap-8 h-[1000px] w-full mx-auto"
+      onClick={onUnAuthClick}
+    >
       {/* Left Column */}
       <div
         ref={leftColumnRef}

@@ -65,11 +65,12 @@ export const buildCartItem = ({
 
 export const updateCartIfCollectionIsAdded = (
   order: Order | null,
-  collection: PhotoCollection
+  collection: PhotoCollection | null
 ) => {
+  if (!collection) return order;
   const updatedCartItems =
     order?.cartItems?.filter(
-      (i) => i.fromCollection !== collection.documentId
+      (i) => i.fromCollection !== collection?.documentId
     ) || [];
 
   const cartItem = buildCartItem({

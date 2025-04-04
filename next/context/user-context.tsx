@@ -65,10 +65,10 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export const useUserContext = (): UserContextType => {
+export const useAuthContext = (): UserContextType => {
   const context = useContext(UserContext);
   if (context === null) {
-    throw new Error("useUserContext must be used within a UserProvider");
+    throw new Error("useAuthContext must be used within a UserProvider");
   }
   return context;
 };

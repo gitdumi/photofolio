@@ -26,14 +26,58 @@ export interface PriceGroup {
   name: string;
   price: number;
 }
+
+export type ImageFormat = {
+  name: string;
+  hash: string;
+  ext: string;
+  mime: string;
+  path: string | null;
+  width: number;
+  height: number;
+  size: number; // Size in KB
+  sizeInBytes: number;
+  url: string;
+};
+
+export type ImageFormats = {
+  thumbnail: ImageFormat;
+  small: ImageFormat;
+  medium: ImageFormat;
+  large: ImageFormat;
+};
+
+export type ImageMetadata = {
+  id: number;
+  documentId: string;
+  name: string;
+  alternativeText: string | null;
+  caption: string | null;
+  width: number;
+  height: number;
+  formats: ImageFormats;
+  hash: string;
+  ext: string;
+  mime: string;
+  size: number; // Size in KB
+  url: string;
+  previewUrl: string | null;
+  provider: string;
+  provider_metadata: any | null; // Adjust type if provider metadata has a specific structure
+  createdAt: string; // ISO date string
+  updatedAt: string; // ISO date string
+  publishedAt: string; // ISO date string
+};
+
 export interface Photo {
   documentId: string;
   name: string;
-  previewImage?: Media | null;
-  fullResImage?: Media | null;
-  rawImage?: Media;
+  previewImage?: ImageMetadata | null;
+  fullResImage?: ImageMetadata | null;
+  rawImage?: ImageMetadata;
   alt?: string;
   priceGroup: PriceGroup;
+  alternativeText: string | null;
 }
 
 export interface PhotoCollection {
@@ -85,3 +129,8 @@ export type User = {
   //   details: string; // Replace with actual order details structure
   // } | null;
 };
+
+export interface CurrencyConfig {
+  currencyCode: string;
+  symbol: string;
+}

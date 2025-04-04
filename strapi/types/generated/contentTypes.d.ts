@@ -618,6 +618,12 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    currencyConfig: Schema.Attribute.Component<'global.currency', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     footer: Schema.Attribute.Component<'global.footer', false> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
