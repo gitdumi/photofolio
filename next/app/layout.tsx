@@ -17,7 +17,7 @@ export default function RootLayout({
   params: { lang: Locale };
 }) {
   return (
-    <html lang={params.lang} suppressHydrationWarning data-theme="luxury">
+    <html lang={params.lang} suppressHydrationWarning data-theme="light">
       {/* <body suppressHydrationWarning> */}
       <SlugProvider>{children}</SlugProvider>
       {/* </body> */}

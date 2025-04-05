@@ -35,8 +35,11 @@ export function CollectionLayout({
     !user && document?.getElementById(collection.documentId)?.showModal();
   };
 
+  console.log("collectionId", collection.documentId);
+
   return (
     <Container>
+      {children}
       <div className="flex justify-between items-center px-2 py-8">
         <Link href={"/"} className="flex space-x-2 items-center">
           <IconArrowLeft className="w-4 h-4 text-muted" />
@@ -81,13 +84,13 @@ export function CollectionLayout({
       </div>
       {!user && (
         <dialog id={collection.documentId} className="modal">
-          <div className="modal-box">
-            <h3 className="font-bold text-lg text-black">Hey!</h3>
-            <p className="py-4 text-black">
+          <div className="modal-box bg-primary">
+            <h3 className="font-bold text-lg text-primary-content">Hey!</h3>
+            <p className="py-4 text-primary-content">
               If you like this image you can purchase it after registering or
               logging in.
             </p>
-            <Button as={Link} href={PAGE_ROUTES.login} variant="outline">
+            <Button as={Link} href={PAGE_ROUTES.login} variant="simple">
               Register / Sign in
             </Button>
           </div>

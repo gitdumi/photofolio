@@ -12,11 +12,6 @@
     },
     "sub_heading": {
       "type": "string"
-    },
-    "plans": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::plan.plan"
     }
   }
 }

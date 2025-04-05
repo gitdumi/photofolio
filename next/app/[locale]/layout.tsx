@@ -11,6 +11,8 @@ import { cn } from "@/lib/utils";
 import { ViewTransitions } from "next-view-transitions";
 import fetchContentType from "@/lib/strapi/fetchContentType";
 import { UserProvider } from "@/context/user-context";
+import { Modal } from "@/components/ui/animated-modal";
+import { CartModal } from "@/components/containers/cart/cart-modal";
 
 const sora = Sora({
   subsets: ["latin"],
@@ -51,7 +53,6 @@ export default async function LocaleLayout({
     true
   );
 
-  console.log("global", { pageData });
   return (
     // <html lang={locale}>
     <ViewTransitions>
