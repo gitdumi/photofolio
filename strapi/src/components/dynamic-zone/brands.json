@@ -12,11 +12,6 @@
     },
     "sub_heading": {
       "type": "string"
-    },
-    "logos": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::logo.logo"
     }
   }
 }

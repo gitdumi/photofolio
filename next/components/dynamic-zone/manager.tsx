@@ -28,7 +28,7 @@ const componentMapping: { [key: string]: any } = {
 
 const DynamicZoneManager: React.FC<Props> = ({ dynamicZone, locale }) => {
   return (
-    <div>
+    <div className="flex-1">
       {dynamicZone.map((componentData) => {
         const Component = componentMapping[componentData.__component];
         if (!Component) {

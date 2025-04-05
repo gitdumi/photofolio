@@ -12,11 +12,11 @@ export default async function SingleCollectionPage({
   params: { slug: string; locale: string };
 }) {
   const collection = await fetchContentType(
-    "photo-collections",
+    `photo-collections`,
     {
-      filter: {
-        id: params.slug,
+      filters: {
         locale: params.locale,
+        slug: params.slug,
       },
       populate: ["photos.previewImage", "priceGroup", "photos.priceGroup"],
     },
@@ -27,18 +27,18 @@ export default async function SingleCollectionPage({
     return <div>Collection not found</div>;
   }
 
-  //   const localizedSlugs = collection.localizations?.reduce(
-  //     (acc: Record<string, string>, localization: any) => {
-  //       acc[localization.locale] = localization.slug;
-  //       return acc;
-  //     },
-  //     { [params.locale]: params.slug }
-  //   );
+  const localizedSlugs = collection.localizations?.reduce(
+    (acc: Record<string, string>, localization: any) => {
+      acc[localization.locale] = localization.slug;
+      return acc;
+    },
+    { [params.locale]: params.slug }
+  );
 
   return (
     <CollectionLayout collection={collection}>
-      {/* <ClientSlugHandler localizedSlugs={localizedSlugs} /> */}
-      {/* <BlocksRenderer content={collection.content} /> */}
+      <ClientSlugHandler localizedSlugs={localizedSlugs} />
+      {collection.content && <BlocksRenderer content={collection.content} />}
     </CollectionLayout>
   );
 }

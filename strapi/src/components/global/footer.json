@@ -7,11 +7,6 @@
   },
   "options": {},
   "attributes": {
-    "logo": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::logo.logo"
-    },
     "description": {
       "type": "string"
     },

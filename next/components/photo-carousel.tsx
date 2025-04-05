@@ -47,8 +47,10 @@ export const PhotoCarousel = ({
   // const leftColumnPhotos = photos.filter((_, index) => index % 2 === 0);
   const leftColumnPhotos = photos;
   //   const rightColumnPhotos = photos.filter((_, index) => index % 2 !== 0);
-  const centerColumnPhotos = [...photos].reverse();
-  const rightColumnPhotos = photos;
+  // const centerColumnPhotos = [...photos].reverse();
+  const centerColumnPhotos = [];
+  // const rightColumnPhotos = photos;
+  const rightColumnPhotos = [];
 
   return (
     <div
@@ -56,40 +58,46 @@ export const PhotoCarousel = ({
       onClick={onUnAuthClick}
     >
       {/* Left Column */}
-      <div
-        ref={leftColumnRef}
-        className="flex flex-col gap-4 w-1/2 overflow-hidden"
-      >
-        {leftColumnPhotos.map((photo: Photo) => (
-          <div key={photo?.previewImage?.id} className="flex-shrink-0">
-            <ImageWrapper photo={photo} collection={collection} />
-          </div>
-        ))}
-      </div>
+      {leftColumnPhotos?.length > 0 && (
+        <div
+          ref={leftColumnRef}
+          className="flex flex-col gap-4 w-1/2 overflow-hidden"
+        >
+          {leftColumnPhotos.map((photo: Photo) => (
+            <div key={photo?.previewImage?.id} className="flex-shrink-0">
+              <ImageWrapper photo={photo} collection={collection} />
+            </div>
+          ))}
+        </div>
+      )}
 
       {/* Center Column */}
-      <div
-        ref={centerColumnRef}
-        className="flex flex-col gap-4 w-1/2 overflow-hidden"
-      >
-        {centerColumnPhotos.map((photo: Photo) => (
-          <div key={photo?.previewImage?.id} className="flex-shrink-0">
-            <ImageWrapper photo={photo} collection={collection} />
-          </div>
-        ))}
-      </div>
+      {centerColumnPhotos?.length > 0 && (
+        <div
+          ref={centerColumnRef}
+          className="flex flex-col gap-4 w-1/2 overflow-hidden"
+        >
+          {centerColumnPhotos?.map((photo: Photo) => (
+            <div key={photo?.previewImage?.id} className="flex-shrink-0">
+              <ImageWrapper photo={photo} collection={collection} />
+            </div>
+          ))}
+        </div>
+      )}
 
       {/* Right Column */}
-      <div
-        ref={rightColumnRef}
-        className="flex flex-col gap-4 w-1/2 overflow-hidden"
-      >
-        {rightColumnPhotos.map((photo: Photo) => (
-          <div key={photo?.previewImage?.id} className="flex-shrink-0">
-            <ImageWrapper photo={photo} collection={collection} />
-          </div>
-        ))}
-      </div>
+      {rightColumnPhotos?.length > 0 && (
+        <div
+          ref={rightColumnRef}
+          className="flex flex-col gap-4 w-1/2 overflow-hidden"
+        >
+          {rightColumnPhotos?.map((photo: Photo) => (
+            <div key={photo?.previewImage?.id} className="flex-shrink-0">
+              <ImageWrapper photo={photo} collection={collection} />
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

@@ -6,11 +6,6 @@
   },
   "options": {},
   "attributes": {
-    "logo": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::logo.logo"
-    },
     "left_navbar_items": {
       "displayName": "Left_Navbar_Items",
       "type": "component",

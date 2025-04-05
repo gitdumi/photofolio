@@ -13,11 +13,6 @@
     "Description": {
       "type": "string"
     },
-    "logos": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::logo.logo"
-    },
     "span": {
       "type": "enumeration",
       "enum": [

@@ -32,15 +32,19 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [order, setOrder] = useState<Order | null>(() => {
-    const storedOrder = sessionStorage?.getItem("cartOrder");
-    return storedOrder ? JSON.parse(storedOrder) : null;
+    if (typeof window !== "undefined") {
+      const storedOrder = sessionStorage?.getItem("cartOrder");
+      return storedOrder ? JSON.parse(storedOrder) : null;
+    }
   });
 
   useEffect(() => {
-    if (order) {
-      sessionStorage?.setItem("cartOrder", JSON.stringify(order));
-    } else {
-      sessionStorage?.removeItem("cartOrder");
+    if (typeof window !== "undefined") {
+      if (order) {
+        sessionStorage?.setItem("cartOrder", JSON.stringify(order));
+      } else {
+        sessionStorage?.removeItem("cartOrder");
+      }
     }
   }, [order]);
 
@@ -135,7 +139,9 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const clearCart = useCallback(() => {
     setOrder(null);
-    sessionStorage.removeItem("cartOrder");
+    if (typeof window !== "undefined") {
+      sessionStorage?.removeItem("cartOrder");
+    }
   }, []);
 
   const getCartTotal = useCallback(() => {
