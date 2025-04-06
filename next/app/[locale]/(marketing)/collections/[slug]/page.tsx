@@ -1,7 +1,6 @@
 import React from "react";
 
 import fetchContentType from "@/lib/strapi/fetchContentType";
-import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 
 import ClientSlugHandler from "../../ClientSlugHandler";
 import { CollectionLayout } from "@/components/collection-layout";
@@ -38,7 +37,6 @@ export default async function SingleCollectionPage({
   return (
     <CollectionLayout collection={collection}>
       <ClientSlugHandler localizedSlugs={localizedSlugs} />
-      {collection.content && <BlocksRenderer content={collection.content} />}
     </CollectionLayout>
   );
 }

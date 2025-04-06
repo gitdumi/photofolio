@@ -58,7 +58,12 @@ export default async function LocaleLayout({
     <ViewTransitions>
       <UserProvider>
         <CartProvider>
-          <body className={cn(sora.className, "antialiased h-full w-full")}>
+          <body
+            className={cn(
+              sora.className,
+              "antialiased h-full w-full min-h-screen flex flex-col"
+            )}
+          >
             <Navbar currencyConfig={pageData.currencyConfig} />
             {children}
             <Footer data={pageData.footer} locale={locale} />

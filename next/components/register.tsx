@@ -1,97 +1,136 @@
 "use client";
-import React, { useState } from "react";
+import React, { useMemo } from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { Container } from "./container";
-import { Button } from "./elements/button";
-import { API_ROUTES } from "@/app/routes.constants";
-import { headers } from "@/lib/fetch-utils";
 import { useRouter } from "next/navigation";
 import { useAuthContext } from "@/context/user-context";
+import { withLoading } from "./hoc/withLoading";
+import { getAuthFormSchema } from "@/lib/form-validation";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { cn } from "@/lib/utils";
 
-export const Register = () => {
-  const router = useRouter();
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [isRegistering, setIsRegistering] = useState(true);
-  const [message, setMessage] = useState<string | null>(null);
-  const { login, register } = useAuthContext();
-
-  const handleSignIn = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const { ok, message } = await login(email, password);
-    !ok && message && setMessage(message);
-    if (ok) router.push("/");
-  };
-
-  const handleRegister = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const { ok, message } = await register(email, password);
-    !ok && message && setMessage(message);
-    if (ok) router.push("/");
-  };
-
-  return (
-    <Container className="h-screen max-w-lg mx-auto flex flex-col items-center justify-center">
-      <h1 className="text-xl md:text-4xl font-bold my-4">
-        {isRegistering ? "Register" : "Sign in"}
-      </h1>
-      <p className="text-center">
-        {isRegistering
-          ? "Create an account so you can purchase photos or collections"
-          : "Login to access your account"}
-      </p>
-
-      <form className="w-full my-4">
-        {isRegistering && (
-          <input
-            type="username"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            className="h-10 pl-4 w-full mb-4 rounded-md text-sm bg-charcoal border border-neutral-800 text-primary placeholder-neutral-500 outline-none focus:outline-none active:outline-none focus:ring-2 focus:ring-neutral-800"
-          />
-        )}
-        <input
-          type="email"
-          placeholder="Email Address"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="h-10 pl-4 w-full mb-4 rounded-md text-sm bg-charcoal border border-neutral-800 text-primary placeholder-neutral-500 outline-none focus:outline-none active:outline-none focus:ring-2 focus:ring-neutral-800"
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="h-10 pl-4 w-full mb-4 rounded-md text-sm bg-charcoal border border-neutral-800 text-primary placeholder-neutral-500 outline-none focus:outline-none active:outline-none focus:ring-2 focus:ring-neutral-800"
-        />
-
-        <Button
-          className="mx-auto my-2"
-          variant="simple"
-          onClick={(e) => {
-            e.preventDefault();
-            setIsRegistering((prev) => !prev);
-          }}
-        >
-          {isRegistering
-            ? "Already have an account?"
-            : "Want to create an account?"}
-        </Button>
-        <div className="flex gap-2">
-          <Button
-            variant="muted"
-            type="submit"
-            className="w-full py-3"
-            onClick={isRegistering ? handleRegister : handleSignIn}
-          >
-            <span className="text-sm">
-              {isRegistering ? "Register" : "Sign in"}
-            </span>
-          </Button>
-        </div>
-        {message && <p>{message}</p>}
-      </form>
-    </Container>
-  );
+type FormValues = {
+  username?: string;
+  email: string;
+  password: string;
 };
+
+export const Register = withLoading(
+  ({
+    setIsLoading,
+  }: {
+    setIsLoading?: React.Dispatch<React.SetStateAction<boolean>>;
+  }) => {
+    const router = useRouter();
+    const { login, register } = useAuthContext();
+    const [isRegistering, setIsRegistering] = React.useState(true);
+
+    const formSchema = useMemo(
+      () => getAuthFormSchema({ isRegister: isRegistering }),
+      [isRegistering]
+    );
+
+    const {
+      register: registerField,
+      handleSubmit,
+      formState: { errors },
+      clearErrors,
+    } = useForm<FormValues>({
+      resolver: zodResolver(formSchema),
+    });
+
+    const onSubmit: SubmitHandler<FormValues> = async (data) => {
+      setIsLoading?.(true);
+
+      if (isRegistering) {
+        const { ok, message } = await register(data.email, data.password);
+        setIsLoading?.(false);
+        if (!ok) return alert(message);
+        router.push("/");
+      } else {
+        const { ok, message } = await login(data.email, data.password);
+        setIsLoading?.(false);
+        if (!ok) return alert(message);
+        router.push("/");
+      }
+    };
+
+    const ErrorMessage = ({ name }: { name: string }) => (
+      <span className="text-error h-4 mt-0 mb-2 text-sm">
+        {errors?.[name]?.message || ""}
+      </span>
+    );
+
+    return (
+      <Container className="max-w-lg m-auto flex flex-col items-center justify-center">
+        <h1 className="text-xl md:text-4xl font-bold my-4">
+          {isRegistering ? "Register" : "Sign in"}
+        </h1>
+        <p className="text-center">
+          {isRegistering
+            ? "Create an account so you can purchase photos or collections"
+            : "Login to access your account"}
+        </p>
+
+        <form
+          className="w-full my-4 flex flex-col sm:min-w-[500px]"
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          {isRegistering && (
+            <div className="flex flex-col gap-1">
+              <input
+                {...registerField("username")}
+                type="text"
+                placeholder="Username*"
+                className={cn(
+                  "input w-full",
+                  errors.username && "border-error"
+                )}
+              />
+              <ErrorMessage name={"username"} />
+            </div>
+          )}
+          <div className="flex flex-col gap-1">
+            <input
+              {...registerField("email")}
+              type="email"
+              placeholder="Email Address*"
+              className={cn("input w-full", errors.email && "border-error")}
+            />
+            <ErrorMessage name={"email"} />
+          </div>
+          <div className="flex flex-col gap-1">
+            <input
+              {...registerField("password")}
+              type="password"
+              placeholder="Password*"
+              className={cn("input w-full", errors.password && "border-error")}
+            />
+            <ErrorMessage name={"password"} />
+          </div>
+
+          <div className="flex gap-2">
+            <button type="submit" className="btn btn-primary w-full py-3">
+              <span className="text-sm">
+                {isRegistering ? "Register" : "Sign in"}
+              </span>
+            </button>
+          </div>
+
+          <button
+            className="btn btn-outline mx-auto mt-8 mb-2 w-fit"
+            onClick={(e) => {
+              e.preventDefault();
+              clearErrors();
+              setIsRegistering((prev) => !prev);
+            }}
+          >
+            {isRegistering
+              ? "Already have an account?"
+              : "Want to create an account?"}
+          </button>
+        </form>
+      </Container>
+    );
+  }
+);

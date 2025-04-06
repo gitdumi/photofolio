@@ -9,9 +9,9 @@ export const Footer = async ({
   locale: string;
 }) => {
   return (
-    <div className="relative">
+    <div className="">
       <div className="border-t border-neutral-900 p-8 relative">
-        <div className="max-w-7xl mx-auto text-sm text-neutral-500 flex sm:flex-row flex-col justify-between items-start ">
+        <div className="mx-auto text-sm text-neutral-500 flex sm:flex-row flex-col justify-between items-start ">
           <div>
             <div className="max-w-xs">{data?.description}</div>
             <div className="mt-4">{data?.copyright}</div>

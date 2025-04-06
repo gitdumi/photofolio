@@ -1,70 +1,78 @@
 import { Photo, PhotoCollection } from "@/types/types";
 import { useEffect, useRef } from "react";
 import { ImageWrapper } from "./containers/image-wrapper";
+import { ParrallaxRatios } from "@/lib/constants";
 
 type PhotoCarouselProps = {
   collection: PhotoCollection;
   onUnAuthClick: () => void;
 };
-
 export const PhotoCarousel = ({
   collection,
   onUnAuthClick,
 }: PhotoCarouselProps) => {
   const { photos } = collection || {};
-  if (!photos) return null;
+
+  const parentRef = useRef<HTMLDivElement>(null);
   const leftColumnRef = useRef<HTMLDivElement>(null);
   const rightColumnRef = useRef<HTMLDivElement>(null);
   const centerColumnRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollTop = window.scrollY;
+      if (!parentRef.current) return;
+
+      const scrollTop = parentRef.current.scrollTop;
 
       if (leftColumnRef.current) {
         leftColumnRef.current.style.transform = `translateY(${
-          scrollTop * 0.1
+          scrollTop * ParrallaxRatios.far
         }px)`;
       }
 
       if (centerColumnRef.current) {
         centerColumnRef.current.style.transform = `translateY(${
-          scrollTop * -0.05
+          scrollTop * ParrallaxRatios.further
         }px)`;
       }
 
       if (rightColumnRef.current) {
         rightColumnRef.current.style.transform = `translateY(${
-          scrollTop * 0.2
+          scrollTop * ParrallaxRatios.furthest
         }px)`;
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const parentElement = parentRef.current;
+    parentElement?.addEventListener("scroll", handleScroll);
+    return () => parentElement?.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // const leftColumnPhotos = photos.filter((_, index) => index % 2 === 0);
-  const leftColumnPhotos = photos;
-  //   const rightColumnPhotos = photos.filter((_, index) => index % 2 !== 0);
-  // const centerColumnPhotos = [...photos].reverse();
-  const centerColumnPhotos = [];
-  // const rightColumnPhotos = photos;
-  const rightColumnPhotos = [];
+  const splitPhotosIntoColumns = (photos: Photo[], numColumns: number) => {
+    const columns: Photo[][] = Array.from({ length: numColumns }, () => []);
+    photos.forEach((photo, index) => {
+      columns[index % numColumns].push(photo);
+    });
+    return columns;
+  };
+
+  const [leftColumnPhotos, centerColumnPhotos, rightColumnPhotos] =
+    splitPhotosIntoColumns(photos || [], 3);
 
   return (
     <div
-      className="relative flex gap-8 h-[1000px] w-full mx-auto"
+      ref={parentRef}
+      className="relative flex flex-1 gap-8 w-full mx-auto overflow-hidden h-full"
       onClick={onUnAuthClick}
     >
       {/* Left Column */}
       {leftColumnPhotos?.length > 0 && (
         <div
           ref={leftColumnRef}
-          className="flex flex-col gap-4 w-1/2 overflow-hidden"
+          className="flex flex-col gap-4 w-1/3 overflow-hidden will-change-transform"
         >
           {leftColumnPhotos.map((photo: Photo) => (
-            <div key={photo?.previewImage?.id} className="flex-shrink-0">
+            <div key={photo?.documentId} className="flex-shrink-0">
               <ImageWrapper photo={photo} collection={collection} />
             </div>
           ))}
@@ -75,10 +83,10 @@ export const PhotoCarousel = ({
       {centerColumnPhotos?.length > 0 && (
         <div
           ref={centerColumnRef}
-          className="flex flex-col gap-4 w-1/2 overflow-hidden"
+          className="flex flex-col gap-4 w-1/3 overflow-hidden will-change-transform"
         >
           {centerColumnPhotos?.map((photo: Photo) => (
-            <div key={photo?.previewImage?.id} className="flex-shrink-0">
+            <div key={photo?.documentId} className="flex-shrink-0">
               <ImageWrapper photo={photo} collection={collection} />
             </div>
           ))}
@@ -89,10 +97,10 @@ export const PhotoCarousel = ({
       {rightColumnPhotos?.length > 0 && (
         <div
           ref={rightColumnRef}
-          className="flex flex-col gap-4 w-1/2 overflow-hidden"
+          className="flex flex-col gap-4 w-1/3 overflow-hidden will-change-transform"
         >
           {rightColumnPhotos?.map((photo: Photo) => (
-            <div key={photo?.previewImage?.id} className="flex-shrink-0">
+            <div key={photo?.documentId} className="flex-shrink-0">
               <ImageWrapper photo={photo} collection={collection} />
             </div>
           ))}

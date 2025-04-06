@@ -5,8 +5,6 @@ import { Avatar } from "../ui/avatar";
 import { Button } from "../elements/button";
 import Link from "next/link";
 import { CurrencyConfig } from "@/types/types";
-import { CartIcon } from "../icons/cart-icon";
-import { useModal } from "../ui/animated-modal";
 import { CartModal } from "../containers/cart/cart-modal";
 
 export const Navbar = ({
@@ -15,12 +13,15 @@ export const Navbar = ({
   currencyConfig: CurrencyConfig;
 }) => {
   const { user, logout } = useAuthContext();
-  const { count, getCartTotal, clearCart } = useCart();
+  const { clearCart } = useCart();
 
   return (
-    <div className="navbar text-primary sticky top-0 z-100 bg-base-100">
+    <div className="navbar p-4 text-primary sticky top-0 z-100 bg-base-100">
       <div className="flex-1">
-        <a className="btn btn-ghost text-xl" href="/">
+        <a
+          className="text-xl hover:text-secondary transition-text-color duration-300"
+          href="/"
+        >
           luke closer
         </a>
       </div>

@@ -14,12 +14,12 @@ export const StickyScroll = ({
 }) => {
   return (
     <div className="py-4 md:py-20">
-      <motion.div className="hidden lg:flex h-full  flex-col max-w-7xl mx-auto justify-between relative   p-10 ">
+      <motion.div className="hidden lg:flex h-full  flex-col mx-auto justify-between relative   p-10 ">
         {content.map((item, index) => (
           <ScrollContent key={item.title + index} item={item} index={index} />
         ))}
       </motion.div>
-      <motion.div className="flex lg:hidden  flex-col max-w-7xl mx-auto justify-between relative  p-10 ">
+      <motion.div className="flex lg:hidden  flex-col mx-auto justify-between relative  p-10 ">
         {content.map((item, index) => (
           <ScrollContentMobile
             key={item.title + index}

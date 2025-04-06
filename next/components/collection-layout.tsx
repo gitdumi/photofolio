@@ -14,14 +14,13 @@ import { useCart } from "@/context/cart-context";
 import { Button } from "./elements/button";
 import { useAuthContext } from "@/context/user-context";
 import { PAGE_ROUTES } from "@/app/routes.constants";
+import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 
 // export async function CollectionLayout({
 export function CollectionLayout({
   collection,
-  children,
 }: {
   collection: PhotoCollection;
-  children: React.ReactNode;
 }) {
   const { order, addToCart, removeFromCart } = useCart();
   const { user } = useAuthContext();
@@ -35,11 +34,13 @@ export function CollectionLayout({
     !user && document?.getElementById(collection.documentId)?.showModal();
   };
 
-  console.log("collectionId", collection.documentId);
-
   return (
-    <Container>
-      {children}
+    <Container className="flex flex-col w-screen h-[200%]">
+      {collection?.content && (
+        <div className="mx-auto">
+          <BlocksRenderer content={collection.content} />
+        </div>
+      )}
       <div className="flex justify-between items-center px-2 py-8">
         <Link href={"/"} className="flex space-x-2 items-center">
           <IconArrowLeft className="w-4 h-4 text-muted" />
@@ -47,7 +48,7 @@ export function CollectionLayout({
         </Link>
       </div>
 
-      <div className="flex w-full justify-end gap-2 my-2">
+      <div className="flex-1 w-full flex justify-end gap-2 my-2">
         {user &&
           !isCollectionAddedToCart &&
           !isInCart(order, collection, collection.documentId) && (
@@ -104,10 +105,6 @@ export function CollectionLayout({
         collection={collection}
         onUnAuthClick={handleUnAuthClick}
       />
-
-      {/* {collection?.dynamic_zone && (
-        <DynamicZoneManager dynamicZone={collection?.dynamic_zone} />
-      )} */}
     </Container>
   );
 }
