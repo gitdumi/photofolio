@@ -33,14 +33,14 @@ export const Navbar = ({
           </div>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content rounded-box z-1 mt-3 w-52 p-2 border-2 border-primary bg-base-100"
+            className="dropdown-content rounded-box z-1 mt-3 min-w-fit w-full p-2 border-2 border-primary bg-primary text-primary-content"
           >
-            <span className="mx-auto cursor-default disabled:hover">
+            <span className="mx-auto min-w-52 w-full cursor-default disabled:hover">
               {user?.username ? `Welcome, ${user.username}` : "Profile"}
             </span>
             <li>
-              <Button
-                variant="outline"
+              <a
+                className="btn btn-outline w-full"
                 onClick={
                   user
                     ? () => {
@@ -49,11 +49,10 @@ export const Navbar = ({
                       }
                     : () => null
                 }
-                as={user ? "a" : Link}
                 href={user ? "" : "/sign-up"}
               >
                 {user ? "Logout" : "Authenticate"}
-              </Button>
+              </a>
             </li>
           </ul>
         </div>

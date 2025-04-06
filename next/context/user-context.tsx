@@ -24,38 +24,50 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
-    const storedToken = localStorage.getItem("token");
-    const storedUser = localStorage.getItem("user");
+    if (typeof window !== "undefined") {
+      const storedToken = localStorage.getItem("token");
+      const storedUser = localStorage.getItem("user");
 
-    if (storedToken && storedUser) {
-      setToken(storedToken);
-      setUser(JSON.parse(storedUser));
+      if (!!storedToken && !!storedUser) {
+        setToken(storedToken);
+        setUser(JSON.parse(storedUser));
+      }
     }
   }, []);
 
   const login = async (email: string, password: string) => {
-    const { ok, user, token, message } = await signIn(email, password);
-    localStorage.setItem("token", token);
-    localStorage.setItem("user", JSON.stringify(user));
-    setToken(token);
-    setUser(user);
-    return { message, ok };
+    if (typeof window !== "undefined") {
+      const { ok, user, token, message } = await signIn(email, password);
+      if (ok && user && token) {
+        localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(user));
+        setToken(token);
+        setUser(user);
+      }
+      return { message, ok };
+    }
   };
 
   const logout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    setToken(null);
-    setUser(null);
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      setToken(null);
+      setUser(null);
+    }
   };
 
   const register = async (email: string, password: string) => {
-    const { ok, user, token, message } = await createAccount(email, password);
-    localStorage.setItem("token", token);
-    localStorage.setItem("user", JSON.stringify(user));
-    setToken(token);
-    setUser(user);
-    return { message, ok };
+    if (typeof window !== "undefined") {
+      const { ok, user, token, message } = await createAccount(email, password);
+      if (ok && user && token) {
+        localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(user));
+        setToken(token);
+        setUser(user);
+      }
+      return { message, ok };
+    }
   };
 
   return (

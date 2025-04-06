@@ -6,6 +6,7 @@ export const withLoading = <P extends object>(
   // eslint-disable-next-line react/display-name
   return (props: P) => {
     const [isLoading, setIsLoading] = useState(false);
+    const [state, setState] = useState();
 
     if (isLoading) {
       return (
@@ -18,6 +19,13 @@ export const withLoading = <P extends object>(
       );
     }
 
-    return <WrappedComponent {...props} setIsLoading={setIsLoading} />;
+    return (
+      <WrappedComponent
+        {...props}
+        setIsLoading={setIsLoading}
+        state={state}
+        setState={setState}
+      />
+    );
   };
 };

@@ -1,5 +1,5 @@
 "use client";
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Container } from "./container";
 import { useRouter } from "next/navigation";
@@ -8,6 +8,7 @@ import { withLoading } from "./hoc/withLoading";
 import { getAuthFormSchema } from "@/lib/form-validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { cn } from "@/lib/utils";
+import { StatusIcons } from "./icons/status-icons";
 
 type FormValues = {
   username?: string;
@@ -18,8 +19,12 @@ type FormValues = {
 export const Register = withLoading(
   ({
     setIsLoading,
+    state: submitError,
+    setState: setSubmitError,
   }: {
     setIsLoading?: React.Dispatch<React.SetStateAction<boolean>>;
+    state: string;
+    setState: React.Dispatch<React.SetStateAction<string>>;
   }) => {
     const router = useRouter();
     const { login, register } = useAuthContext();
@@ -45,21 +50,30 @@ export const Register = withLoading(
       if (isRegistering) {
         const { ok, message } = await register(data.email, data.password);
         setIsLoading?.(false);
-        if (!ok) return alert(message);
-        router.push("/");
+        if (!ok) {
+          setSubmitError(message);
+        } else {
+          router.push("/");
+        }
       } else {
         const { ok, message } = await login(data.email, data.password);
         setIsLoading?.(false);
-        if (!ok) return alert(message);
-        router.push("/");
+        if (!ok) {
+          setSubmitError(message);
+        } else {
+          router.push("/");
+        }
       }
     };
 
-    const ErrorMessage = ({ name }: { name: string }) => (
+    const ErrorMessage = ({ name, text }: { name?: string; text?: string }) => (
       <span className="text-error h-4 mt-0 mb-2 text-sm">
         {errors?.[name]?.message || ""}
+        {text || ""}
       </span>
     );
+
+    console.log({ submitError });
 
     return (
       <Container className="max-w-lg m-auto flex flex-col items-center justify-center">
@@ -116,12 +130,18 @@ export const Register = withLoading(
               </span>
             </button>
           </div>
-
+          {submitError && (
+            <div role="alert" className="alert alert-error mt-8">
+              <StatusIcons.Error />
+              <span>{submitError}</span>
+            </div>
+          )}
           <button
             className="btn btn-outline mx-auto mt-8 mb-2 w-fit"
             onClick={(e) => {
               e.preventDefault();
               clearErrors();
+              setSubmitError("");
               setIsRegistering((prev) => !prev);
             }}
           >
