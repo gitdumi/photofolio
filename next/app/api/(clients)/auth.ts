@@ -1,5 +1,5 @@
-import { API_ROUTES } from "@/app/routes.constants";
-import { headers } from "../fetch-utils";
+import { API_ROUTES } from "@/app/api/(clients)/routes.constants";
+import { headers } from "../../../lib/util/fetch-utils";
 import { User } from "@/types/types";
 
 export type AuthResult = {

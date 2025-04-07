@@ -50,6 +50,12 @@
           "localized": true
         }
       }
+    },
+    "cartItemId": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::cart-item.cart-item",
+      "mappedBy": "collection"
     }
   }
 }

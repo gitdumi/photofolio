@@ -1,6 +1,6 @@
 import React from "react";
 
-import fetchContentType from "@/lib/strapi/fetchContentType";
+import fetchContentType from "@/app/api/(clients)/fetchContentType";
 
 import ClientSlugHandler from "../../ClientSlugHandler";
 import { CollectionLayout } from "@/components/collection-layout";

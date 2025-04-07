@@ -44,6 +44,7 @@ export default async function fetchContentType(
     // Construct the full URL for the API request
     const url = new URL(`api/${contentType}`, process.env.NEXT_PUBLIC_API_URL);
 
+    console.log("fetch URL", `${url.href}?${qs.stringify(queryParams)}`);
     // Perform the fetch request with the provided query parameters
     const response = await fetch(`${url.href}?${qs.stringify(queryParams)}`, {
       method: "GET",

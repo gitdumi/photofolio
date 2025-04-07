@@ -8,7 +8,7 @@ import {
   useMotionValue,
   useSpring,
 } from "framer-motion";
-import { strapiImage } from "@/lib/strapi/strapiImage";
+import { strapiImage } from "@/app/api/(clients)/strapiImage";
 
 export const AnimatedTooltip = ({
   items,

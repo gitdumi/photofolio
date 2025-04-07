@@ -5,6 +5,7 @@ export const API_ROUTES = {
     forgotPassword: "/api/auth/password-forgot",
     resetPassword: "/api/auth/password-reset",
   },
+  checkout: "/api/checkout",
 };
 
 export const PAGE_ROUTES = {

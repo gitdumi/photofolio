@@ -64,15 +64,14 @@ export interface CartCartItem extends Struct.ComponentSchema {
   collectionName: 'components_cart_cart_items';
   info: {
     description: '';
-    displayName: 'Cart item';
+    displayName: 'cartItem';
   };
   attributes: {
     collection: Schema.Attribute.Relation<
-      'oneToMany',
+      'oneToOne',
       'api::photo-collection.photo-collection'
     >;
     photo: Schema.Attribute.Relation<'oneToOne', 'api::photo.photo'>;
-    price: Schema.Attribute.Decimal;
     type: Schema.Attribute.Enumeration<['photo', 'collection']>;
   };
 }

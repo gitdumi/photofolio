@@ -56,6 +56,12 @@
       "relation": "manyToOne",
       "target": "api::price-group.price-group",
       "inversedBy": "photos"
+    },
+    "cartItemPhoto": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::cart-item.cart-item",
+      "mappedBy": "photo"
     }
   }
 }

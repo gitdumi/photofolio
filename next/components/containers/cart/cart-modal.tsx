@@ -12,6 +12,7 @@ import { CartIcon } from "../../icons/cart-icon";
 import { CurrencyConfig } from "@/types/types";
 import { CartItemsSummary } from "./cart-items-summary";
 import { Button } from "@/components/elements/button";
+import { createOrder } from "@/app/api/(clients)/checkout";
 
 export const CartModal = ({
   currencyConfig,
@@ -50,6 +51,16 @@ export const CartModal = ({
             </span>
           </span>
           <Button variant="simple">Pay</Button>
+          <button
+            className="btn"
+            onClick={async () => {
+              if (order) {
+                const response = await createOrder(order);
+              }
+            }}
+          >
+            create order
+          </button>
         </ModalFooter>
       </ModalBody>
     </Modal>

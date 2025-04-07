@@ -1,7 +1,7 @@
 import { Photo, PhotoCollection } from "@/types/types";
 import { useEffect, useRef } from "react";
 import { ImageWrapper } from "./containers/image-wrapper";
-import { ParrallaxRatios } from "@/lib/constants";
+import { ParrallaxRatios } from "@/lib/util/constants";
 
 type PhotoCarouselProps = {
   collection: PhotoCollection;

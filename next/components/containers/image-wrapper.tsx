@@ -3,12 +3,12 @@ import {
   buildCartItem,
   isCollectionInCart,
   isInCart,
-} from "@/lib/strapi/cart-utils";
+} from "@/lib/util/cart-utils";
 import { CartItemVariant, Photo, PhotoCollection } from "@/types/types";
 import Image from "next/image";
 import { CheckmarkIcon } from "../icons/checkmark-icon";
 import { useEffect, useState } from "react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/util/utils";
 import { useAuthContext } from "@/context/user-context";
 
 export const ImageWrapper = ({

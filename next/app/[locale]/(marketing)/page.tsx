@@ -1,18 +1,17 @@
-import { Metadata } from 'next';
+import { Metadata } from "next";
 
-import PageContent from '@/lib/shared/PageContent';
-import fetchContentType from '@/lib/strapi/fetchContentType';
-import { generateMetadataObject } from '@/lib/shared/metadata';
-import ClientSlugHandler from './ClientSlugHandler';
+import PageContent from "@/lib/shared/PageContent";
+import fetchContentType from "@/app/api/(clients)/fetchContentType";
+import { generateMetadataObject } from "@/lib/shared/metadata";
+import ClientSlugHandler from "./ClientSlugHandler";
 
 export async function generateMetadata({
   params,
 }: {
   params: { locale: string };
 }): Promise<Metadata> {
-
   const pageData = await fetchContentType(
-    'pages',
+    "pages",
     {
       filters: {
         slug: "homepage",
@@ -28,10 +27,13 @@ export async function generateMetadata({
   return metadata;
 }
 
-export default async function HomePage({ params }: { params: { locale: string } }) {
-
+export default async function HomePage({
+  params,
+}: {
+  params: { locale: string };
+}) {
   const pageData = await fetchContentType(
-    'pages',
+    "pages",
     {
       filters: {
         slug: "homepage",
@@ -49,8 +51,10 @@ export default async function HomePage({ params }: { params: { locale: string } 
     { [params.locale]: "" }
   );
 
-  return <>
-    <ClientSlugHandler localizedSlugs={localizedSlugs} />
-    <PageContent pageData={pageData} />
-  </>;
+  return (
+    <>
+      <ClientSlugHandler localizedSlugs={localizedSlugs} />
+      <PageContent pageData={pageData} />
+    </>
+  );
 }

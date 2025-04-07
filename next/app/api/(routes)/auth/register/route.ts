@@ -1,4 +1,4 @@
-import { headers } from "@/lib/fetch-utils";
+import { headers } from "@/lib/util/fetch-utils";
 
 export async function POST(req: Request) {
   try {
@@ -13,12 +13,13 @@ export async function POST(req: Request) {
     }
 
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/auth/local`,
+      `${process.env.NEXT_PUBLIC_API_URL}/api/auth/local/register`,
       {
         method: "POST",
         headers,
         body: JSON.stringify({
-          identifier: email, // Strapi uses "identifier" for email/username
+          username: email,
+          email,
           password,
         }),
       }
@@ -28,21 +29,17 @@ export async function POST(req: Request) {
 
     if (!response.ok) {
       return new Response(
-        JSON.stringify({ message: data.error?.message || "Login failed" }),
+        JSON.stringify({
+          message: data.error?.message || "Registration failed",
+        }),
         { status: response.status }
       );
     }
 
-    return new Response(
-      JSON.stringify({
-        message: `Welcome, ${data?.user?.username}`,
-        jwt: data.jwt,
-        user: data.user,
-      }),
-      {
-        status: 200,
-      }
-    );
+    // Return the JWT token and user data
+    return new Response(JSON.stringify({ jwt: data.jwt, user: data.user }), {
+      status: 200,
+    });
   } catch (error) {
     console.error("Error during login:", error);
     return new Response(JSON.stringify({ message: "Internal server error" }), {

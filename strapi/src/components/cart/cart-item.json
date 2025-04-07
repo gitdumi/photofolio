@@ -1,7 +1,7 @@
 {
   "collectionName": "components_cart_cart_items",
   "info": {
-    "displayName": "Cart item",
+    "displayName": "cartItem",
     "description": ""
   },
   "options": {},
@@ -11,12 +11,9 @@
       "relation": "oneToOne",
       "target": "api::photo.photo"
     },
-    "price": {
-      "type": "decimal"
-    },
     "collection": {
       "type": "relation",
-      "relation": "oneToMany",
+      "relation": "oneToOne",
       "target": "api::photo-collection.photo-collection"
     },
     "type": {

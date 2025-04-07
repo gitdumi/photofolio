@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/util/utils";
 import React from "react";
 import { LinkProps } from "next/link";
 

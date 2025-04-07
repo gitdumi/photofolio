@@ -15,7 +15,7 @@ import {
   makeResetPasswordRequest,
   ResetPasswordResult,
   signIn,
-} from "@/lib/strapi/auth";
+} from "@/app/api/(clients)/auth";
 
 const UserContext = createContext<UserContextType | null>(null);
 

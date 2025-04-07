@@ -7,9 +7,9 @@ import { generateMetadataObject } from "@/lib/shared/metadata";
 import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar/navbar";
 import { CartProvider } from "@/context/cart-context";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/util/utils";
 import { ViewTransitions } from "next-view-transitions";
-import fetchContentType from "@/lib/strapi/fetchContentType";
+import fetchContentType from "@/app/api/(clients)/fetchContentType";
 import { UserProvider } from "@/context/user-context";
 import { Modal } from "@/components/ui/animated-modal";
 import { CartModal } from "@/components/containers/cart/cart-modal";
@@ -52,7 +52,6 @@ export default async function LocaleLayout({
     { filters: { locale } },
     true
   );
-
   return (
     // <html lang={locale}>
     <ViewTransitions>

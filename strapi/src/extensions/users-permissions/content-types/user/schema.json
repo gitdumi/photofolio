@@ -74,7 +74,7 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::order.order",
-      "mappedBy": "users_permissions_user"
+      "mappedBy": "user"
     }
   }
 }

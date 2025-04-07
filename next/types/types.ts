@@ -2,7 +2,6 @@ import { BlocksContent } from "@strapi/blocks-react-renderer";
 
 export enum OrderStatus {
   IN_PROGRESS = "inProgress",
-  PENDING = "pending",
   SUCCESS = "success",
   FAILED = "failed",
 }
@@ -70,6 +69,7 @@ export type ImageMetadata = {
 };
 
 export interface Photo {
+  id: string;
   documentId: string;
   name: string;
   previewImage?: ImageMetadata | null;
@@ -81,6 +81,7 @@ export interface Photo {
 }
 
 export interface PhotoCollection {
+  id: string;
   documentId: string;
   collectionName: string;
   content: BlocksContent;
@@ -93,12 +94,11 @@ export interface Order {
   totalPrice: number;
   orderStatus: OrderStatus;
   orderCreatedAt: string;
+  orderUpdatedAt?: string | null;
   orderCompletedAt?: string | null;
-  users_permissions_user?: {
-    id: string;
-    username: string;
-  } | null;
-  cartItems: CartItem[];
+  user?: User | null;
+  cartItems?: CartItem[];
+  cartItemIds?: string[];
 }
 
 export type CartItem = {

@@ -5,7 +5,7 @@ import { Container } from "./container";
 import { useAuthContext } from "@/context/user-context";
 import { withLoading } from "./hoc/withLoading";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { cn, formatEnumValueToText } from "@/lib/utils";
+import { cn, formatEnumValueToText } from "@/lib/util/utils";
 import { StatusIcons } from "./icons/status-icons";
 import {
   AuthFormSubmitButtonLabel,

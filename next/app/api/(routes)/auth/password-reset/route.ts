@@ -1,22 +1,25 @@
-import { headers } from "@/lib/fetch-utils";
+import { headers } from "@/lib/util/fetch-utils";
 
 export async function POST(req: Request) {
   try {
-    const { email } = await req.json();
+    const { code, password, passwordConfirmation } = await req.json();
 
-    if (!email) {
-      return new Response(JSON.stringify({ message: "Email is required" }), {
-        status: 400,
-      });
+    if (!code || !password || !passwordConfirmation) {
+      return new Response(
+        JSON.stringify({ message: "Both fields are required" }),
+        { status: 400 }
+      );
     }
 
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/auth/forgot-password`,
+      `${process.env.NEXT_PUBLIC_API_URL}/api/auth/reset-password`,
       {
         method: "POST",
         headers,
         body: JSON.stringify({
-          email: email,
+          code,
+          password,
+          passwordConfirmation,
         }),
       }
     );
@@ -33,15 +36,13 @@ export async function POST(req: Request) {
     }
 
     return new Response(
-      JSON.stringify({
-        message: "Please check your email to reset your password.",
-      }),
+      JSON.stringify({ message: "Your password has been reset!" }),
       {
         status: 200,
       }
     );
   } catch (error) {
-    console.error("Error during forgot password request:", error);
+    console.error("Error during reset password:", error);
     return new Response(JSON.stringify({ message: "Internal server error" }), {
       status: 500,
     });

@@ -12,7 +12,8 @@ import {
   calculateTotal,
   initOrder,
   updateCartIfCollectionIsAdded,
-} from "@/lib/strapi/cart-utils";
+} from "@/lib/util/cart-utils";
+import { useAuthContext } from "./user-context";
 
 type CartContextType = {
   order: Order | null | undefined;
@@ -48,12 +49,17 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   }, [order]);
 
+  const { user } = useAuthContext();
+
+  console.log({ CartContextUser: user });
+
   const addToCart = useCallback(
     (cartItem: CartItem | null, fromCollectionCartItem?: CartItem) => {
       if (!cartItem) return;
-      if (!order) setOrder(initOrder());
+      if (!order) setOrder(initOrder(user));
 
       setOrder((prev) => {
+        if (!prev?.user && user) return { ...prev, user };
         if (prev?.cartItems.find((i) => i.documentId === cartItem.documentId)) {
           return prev;
         }

@@ -5,14 +5,16 @@ import {
   OrderStatus,
   Photo,
   PhotoCollection,
+  User,
 } from "@/types/types";
 
-export const initOrder = () => ({
+export const initOrder = (user: User | null = null) => ({
   orderCreatedAt: new Date().toISOString(),
   orderCompletedAt: null,
   orderStatus: OrderStatus.IN_PROGRESS,
   cartItems: [],
   totalPrice: 0,
+  user,
 });
 
 export const calculateTotal = (

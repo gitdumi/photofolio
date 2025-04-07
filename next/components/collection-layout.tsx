@@ -9,11 +9,11 @@ import {
   buildCartItem,
   isCollectionInCart,
   isInCart,
-} from "@/lib/strapi/cart-utils";
+} from "@/lib/util/cart-utils";
 import { useCart } from "@/context/cart-context";
 import { Button } from "./elements/button";
 import { useAuthContext } from "@/context/user-context";
-import { PAGE_ROUTES } from "@/app/routes.constants";
+import { PAGE_ROUTES } from "@/app/api/(clients)/routes.constants";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import { MouseEventHandler } from "react";
 
@@ -31,7 +31,6 @@ export function CollectionLayout({
     collection.documentId
   );
 
-  console.log({ user });
   const handleUnAuthClick = () => {
     !user && document?.getElementById(collection.documentId)?.showModal();
   };
