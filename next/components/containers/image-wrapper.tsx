@@ -9,6 +9,7 @@ import Image from "next/image";
 import { CheckmarkIcon } from "../icons/checkmark-icon";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
+import { useAuthContext } from "@/context/user-context";
 
 export const ImageWrapper = ({
   photo,
@@ -20,6 +21,7 @@ export const ImageWrapper = ({
   className?: string;
 }) => {
   const { addToCart, removeFromCart, order } = useCart();
+  const { user } = useAuthContext();
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -27,7 +29,7 @@ export const ImageWrapper = ({
   }, []);
 
   const handleImageClick = () => {
-    if (isMounted) {
+    if (isMounted && user) {
       const cartItem = buildCartItem({
         photo,
         type: CartItemVariant.PHOTO,
@@ -44,8 +46,6 @@ export const ImageWrapper = ({
     }
   };
 
-  console.log({ photo });
-
   return (
     <div
       id={photo.documentId}
@@ -53,7 +53,6 @@ export const ImageWrapper = ({
       onClick={handleImageClick}
     >
       <div className="opacity-0 hover:opacity-20 absolute top-0 left-0 h-full w-full bg-secondary transition-opacity duration-300"></div>
-      {/* <div className="h-[400px] w-[400px] bg-accent"></div> */}
       <Image
         src={photo?.previewImage?.formats?.small?.url || ""}
         alt={photo.alt || photo.name}

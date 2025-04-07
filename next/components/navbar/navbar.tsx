@@ -33,11 +33,13 @@ export const Navbar = ({
           </div>
           <ul
             tabIndex={0}
-            className="dropdown-content rounded-box z-1 mt-3 min-w-fit w-full p-2 border-2 border-primary bg-primary text-primary-content"
+            className="dropdown-content rounded-box z-1 mt-3 w-full min-w-[200px] p-2 border-2 border-primary bg-primary text-primary-content"
           >
-            <span className="mx-auto min-w-52 w-full cursor-default disabled:hover">
-              {user?.username ? `Welcome, ${user.username}` : "Profile"}
-            </span>
+            {user?.username && (
+              <span className="mx-auto w-full cursor-default disabled:hover">
+                {`Welcome, ${user.username}`}
+              </span>
+            )}
             <li>
               <a
                 className="btn btn-outline w-full"
@@ -49,7 +51,7 @@ export const Navbar = ({
                       }
                     : () => null
                 }
-                href={user ? "" : "/sign-up"}
+                href={user ? "" : "/auth"}
               >
                 {user ? "Logout" : "Authenticate"}
               </a>

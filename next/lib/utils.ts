@@ -19,3 +19,12 @@ export const formatNumber = (
     maximumFractionDigits: 2,
   }).format(number);
 };
+
+export function formatEnumValueToText(enumValue?: string): string {
+  return (
+    enumValue
+      ?.toLowerCase()
+      ?.replace(/_/g, " ")
+      ?.replace(/^\w/, (c) => c.toUpperCase()) || ""
+  );
+}

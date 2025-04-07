@@ -59,6 +59,7 @@ export const PhotoCarousel = ({
   const [leftColumnPhotos, centerColumnPhotos, rightColumnPhotos] =
     splitPhotosIntoColumns(photos || [], 3);
 
+  console.log({ onUnAuthClick });
   return (
     <div
       ref={parentRef}

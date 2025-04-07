@@ -24,13 +24,14 @@ export default ({ env }) => ({
     config: {
       provider: "strapi-provider-email-brevo",
       providerOptions: {
-        apiKey: env("BREVO_SMTP_PASSWORD"),
+        apiKey: env("BREVO_API_KEY"),
       },
       settings: {
-        defaultSenderEmail: "luke@closer.com",
+        defaultSenderEmail: "ngy6sd59gj@privaterelay.appleid.com",
         defaultSenderName: "Luke Closer",
         defaultReplyTo: "vlad.dumitrescu@proton.me",
       },
+      url: env("CLIENT_URL"),
     },
   },
 });

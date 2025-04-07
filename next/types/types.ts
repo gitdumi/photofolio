@@ -134,3 +134,8 @@ export interface CurrencyConfig {
   currencyCode: string;
   symbol: string;
 }
+
+export enum SubmitStatus {
+  SUCCESS = "SUCCESS",
+  ERROR = "ERROR",
+}

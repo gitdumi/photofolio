@@ -15,6 +15,7 @@ import { Button } from "./elements/button";
 import { useAuthContext } from "@/context/user-context";
 import { PAGE_ROUTES } from "@/app/routes.constants";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
+import { MouseEventHandler } from "react";
 
 // export async function CollectionLayout({
 export function CollectionLayout({
@@ -30,6 +31,7 @@ export function CollectionLayout({
     collection.documentId
   );
 
+  console.log({ user });
   const handleUnAuthClick = () => {
     !user && document?.getElementById(collection.documentId)?.showModal();
   };
@@ -89,14 +91,14 @@ export function CollectionLayout({
             <h3 className="font-bold text-lg text-primary-content">Hey!</h3>
             <p className="py-4 text-primary-content">
               If you like this image you can purchase it after registering or
-              logging in.
+              signing in.
             </p>
-            <Button as={Link} href={PAGE_ROUTES.login} variant="simple">
-              Register / Sign in
-            </Button>
+            <a href={PAGE_ROUTES.auth} className="flex btn">
+              To Auth Page
+            </a>
           </div>
 
-          <form method="dialog" className="modal-backdrop">
+          <form method="dialog" className="modal-backdrop backdrop-blur-xs">
             <button>close</button>
           </form>
         </dialog>

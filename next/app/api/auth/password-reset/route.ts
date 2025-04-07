@@ -2,24 +2,24 @@ import { headers } from "@/lib/fetch-utils";
 
 export async function POST(req: Request) {
   try {
-    // Parse the request body
-    const { email, password } = await req.json();
+    const { code, password, passwordConfirmation } = await req.json();
 
-    if (!email || !password) {
+    if (!code || !password || !passwordConfirmation) {
       return new Response(
-        JSON.stringify({ message: "Email and password are required" }),
+        JSON.stringify({ message: "Both fields are required" }),
         { status: 400 }
       );
     }
 
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/auth/local`,
+      `${process.env.NEXT_PUBLIC_API_URL}/api/auth/reset-password`,
       {
         method: "POST",
         headers,
         body: JSON.stringify({
-          identifier: email, // Strapi uses "identifier" for email/username
+          code,
           password,
+          passwordConfirmation,
         }),
       }
     );
@@ -28,23 +28,21 @@ export async function POST(req: Request) {
 
     if (!response.ok) {
       return new Response(
-        JSON.stringify({ message: data.error?.message || "Login failed" }),
+        JSON.stringify({
+          message: data.error?.message || "Something went wrong",
+        }),
         { status: response.status }
       );
     }
 
     return new Response(
-      JSON.stringify({
-        message: `Welcome, ${data?.user?.username}`,
-        jwt: data.jwt,
-        user: data.user,
-      }),
+      JSON.stringify({ message: "Your password has been reset!" }),
       {
         status: 200,
       }
     );
   } catch (error) {
-    console.error("Error during login:", error);
+    console.error("Error during reset password:", error);
     return new Response(JSON.stringify({ message: "Internal server error" }), {
       status: 500,
     });
